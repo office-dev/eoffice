@@ -54,7 +54,6 @@ jobs:
           key: composer-cache-php${{ matrix.php }}-symfony-${{ matrix.symfony }}
       - name: Install dependencies
         run: |
-          composer require "illuminate/contracts=${{ matrix.symfony }}" --no-update
           composer update --prefer-dist --no-interaction --no-progress
 
       - name: Psalm

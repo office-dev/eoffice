@@ -1,12 +1,19 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
-    ->exclude('vendor')
-    ->exclude('storage')
-;
+    ->exclude('var');
 
 $header = <<<'HEADER'
 This file is part of the EOffice project.
@@ -18,6 +25,7 @@ file that was distributed with this source code.
 HEADER;
 
 $config = new PhpCsFixer\Config();
+
 return $config
     ->setRiskyAllowed(true)
     ->setRules([
@@ -32,8 +40,8 @@ return $config
         ],
         'binary_operator_spaces' => [
             'operators' => [
-                '=' => 'align'
-            ]
+                '=' => 'align',
+            ],
         ],
         'not_operator_with_space' => true,
         'no_spaces_inside_parenthesis' => true,
