@@ -1,0 +1,8 @@
+parameters:
+    paths:
+        - src
+        - tests
+    level: 5
+    checkMissingIterableValueType: false
+    excludePaths:
+        - src/*/*/Resources

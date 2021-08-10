@@ -1,0 +1,9 @@
+default:
+    suites:
+        default:
+            contexts:
+                - Integration\EOffice\DemoContext
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            kernel: EOffice\Kernel
