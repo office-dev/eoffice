@@ -6,4 +6,6 @@ default:
 
     extensions:
         FriendsOfBehat\SymfonyExtension:
-            kernel: EOffice\Kernel
+            kernel:
+                class: EOffice\Core\Kernel
+                debug: true

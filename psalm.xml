@@ -17,5 +17,8 @@
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
         <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
         <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
-    </plugins>
+    <pluginClass class="mockery"/></plugins>
+    <issueHandlers>
+        <MissingConstructor errorLevel="suppress"/>
+    </issueHandlers>
 </psalm>
