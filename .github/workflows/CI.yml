@@ -71,11 +71,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.0]
+        php: [7.4, 8.0]
         symfony: [5.3]
         include:
           - php: '8.0'
-            symfony: '^5.3'
+            symfony: '5.3'
             coverage: true
 
     name: PHPUnit (PHP ${{ matrix.php }})(Symfony ${{ matrix.symfony }})
