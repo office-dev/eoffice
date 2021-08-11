@@ -113,8 +113,8 @@ jobs:
         
       - name: Prepare migration
         run: |
-          ./bin/console doctrine:database:create
-          ./bin/console doctrine:schema:create
+          ./bin/console doctrine:database:create --env=test
+          ./bin/console doctrine:schema:create --env=test
 
       - name: PHPUnit
         run: |
