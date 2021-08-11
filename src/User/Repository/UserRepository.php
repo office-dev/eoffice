@@ -36,7 +36,8 @@ EOC;
             ->setParameter('query', $username)
             ->getOneOrNullResult();
 
-        assert($user instanceof UserInterface);
+        \assert($user instanceof UserInterface);
+
         return $user;
     }
 }

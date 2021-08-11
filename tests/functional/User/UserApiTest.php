@@ -40,10 +40,10 @@ class UserApiTest extends ApiTestCase
     public function test_create_user()
     {
         $response = $this->client->request('POST', '/api/users', ['json' => [
-                'username' => 'test',
-                'email' => 'test@example.org',
-                'plainPassword' => 'test',
-            ],
+            'username' => 'test',
+            'email' => 'test@example.org',
+            'plainPassword' => 'test',
+        ],
         ]);
 
         $this->assertResponseIsSuccessful();
