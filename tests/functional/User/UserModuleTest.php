@@ -1,24 +1,34 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace Functional\EOffice\User;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use EOffice\Contracts\User\Model\UserInterface;
 use EOffice\Testing\Concerns\InteractsWithORM;
+use EOffice\Testing\FunctionalTestCase;
 use EOffice\User\Model\User;
 use EOffice\User\Repository\UserRepository;
 use EOffice\User\Testing\InteractsWithUser;
-use EOffice\User\UserModule;
-use EOffice\Testing\FunctionalTestCase;
 
 /**
  * @covers \EOffice\User\UserModule
  */
 class UserModuleTest extends FunctionalTestCase
 {
-    use InteractsWithORM,
-        InteractsWithUser;
+    use InteractsWithORM;
+    use InteractsWithUser;
 
     public function test_it_should_load_user_model(): void
     {
@@ -49,5 +59,4 @@ class UserModuleTest extends FunctionalTestCase
             $em->getRepository(User::class)
         );
     }
-
 }

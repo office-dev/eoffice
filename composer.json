@@ -60,7 +60,7 @@
         }
     },
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^2.6",
@@ -81,7 +81,7 @@
         "symfony/property-info": "5.3.*",
         "symfony/proxy-manager-bridge": "5.3.*",
         "symfony/runtime": "5.3.*",
-        "symfony/security-bundle": ">=5.3.4",
+        "symfony/security-bundle": "5.3.*",
         "symfony/serializer": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
         "symfony/validator": "5.3.*",
@@ -93,6 +93,7 @@
         "friends-of-behat/symfony-extension": "^2.2",
         "friendsofphp/php-cs-fixer": "^3.0",
         "hautelook/alice-bundle": "^2.9",
+        "mockery/mockery": "^1.4",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^0.12.94",
         "phpstan/phpstan-doctrine": "^0.12.42",

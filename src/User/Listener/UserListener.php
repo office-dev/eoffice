@@ -1,14 +1,24 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace EOffice\User\Listener;
 
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use EOffice\Contracts\User\Model\UserInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserListener implements EventSubscriberInterface
 {
@@ -26,14 +36,14 @@ class UserListener implements EventSubscriberInterface
     {
         return [
             Events::prePersist,
-            Events::preUpdate
+            Events::preUpdate,
         ];
     }
 
     public function prePersist(LifecycleEventArgs $args)
     {
         $object = $args->getObject();
-        if($object instanceof UserInterface){
+        if ($object instanceof UserInterface) {
             $this->updateUserFields($object);
         }
     }
@@ -41,27 +51,28 @@ class UserListener implements EventSubscriberInterface
     public function preUpdate(LifecycleEventArgs $args)
     {
         $object = $args->getObject();
-        if($object instanceof UserInterface){
+        if ($object instanceof UserInterface) {
+            /** @var EntityManagerInterface $em */
+            $em = $args->getObjectManager();
+
             $this->updateUserFields($object);
-            $this->recomputeChangeSet($args->getObjectManager(), $object);
+            $this->recomputeChangeSet($em, $object);
         }
     }
 
     private function updateUserFields(UserInterface $user)
     {
         $plain = $user->getPlainPassword();
-        if(null !== $plain){
-            $hasher = $this->hasher;
+        if (null !== $plain) {
+            $hasher   = $this->hasher;
             $password = $hasher->hashPassword($user, $plain);
             $user->setPassword($password);
         }
     }
 
-    private function recomputeChangeSet(EntityManagerInterface|ObjectManager $em, UserInterface $user)
+    private function recomputeChangeSet(EntityManagerInterface $em, UserInterface $user)
     {
-        $meta = $em->getClassMetadata(get_class($user));
-
-        /** @var EntityManagerInterface $em */
+        $meta = $em->getClassMetadata(\get_class($user));
         $em->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $user);
     }
 }

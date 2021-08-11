@@ -1,20 +1,30 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace EOffice\User\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use EOffice\Resource\Repository\ResourceRepository;
-use EOffice\User\Model\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
-use EOffice\Contracts\User\Model\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
-
-    public function loadUserByUsername(string $username): ?object
+    /**
+     * {@inheritDoc}
+     */
+    public function loadUserByUsername(string $username)
     {
-        $em = $this->getentityManager();
+        $em  = $this->getentityManager();
         $dql = <<<EOC
 SELECT u
 FROM EOffice\Contracts\User\Model\UserInterface u
@@ -22,8 +32,11 @@ WHERE u.username = :query
 OR u.email = :query
 EOC;
 
-        return $em->createQuery($dql)
+        $user = $em->createQuery($dql)
             ->setParameter('query', $username)
             ->getOneOrNullResult();
+
+        assert($user instanceof UserInterface);
+        return $user;
     }
 }

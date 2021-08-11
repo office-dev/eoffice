@@ -16,7 +16,6 @@ namespace EOffice\Core;
 use EOffice\Contracts\Support\ModuleInterface;
 use EOffice\Core\Exception\CoreException;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
@@ -40,13 +39,12 @@ class Kernel extends BaseKernel
 
     public function getProjectDir(): string
     {
-        if(is_dir($dir = __DIR__.'/../../vendor')){
-            return dirname($dir);
+        if (is_dir($dir = __DIR__.'/../../vendor')) {
+            return \dirname($dir);
         }
 
         return parent::getProjectDir();
     }
-
 
     /**
      * @throws CoreException
@@ -56,9 +54,9 @@ class Kernel extends BaseKernel
         parent::initializeBundles();
         $this->modules = [];
 
-        foreach($this->initializeModules() as $module){
-            if(!$module instanceof ModuleInterface){
-                $moduleClass = get_class($module);
+        foreach ($this->initializeModules() as $module) {
+            if ( ! $module instanceof ModuleInterface) {
+                $moduleClass = \get_class($module);
                 throw CoreException::moduleShouldImplementModuleInterface($moduleClass);
             }
             $this->modules[$module->getName()] = $module;
@@ -79,7 +77,7 @@ class Kernel extends BaseKernel
             $container->import('../../config/{services}.php');
         }
 
-        foreach($this->modules as $module){
+        foreach ($this->modules as $module) {
             $this->configureModule($container, $module);
         }
     }
@@ -96,49 +94,50 @@ class Kernel extends BaseKernel
             $routes->import('../../config/{routes}.php');
         }
 
-        foreach($this->getModules() as $module){
+        foreach ($this->getModules() as $module) {
             $baseDir = $module->getBaseDir();
-            if(is_file($file = $baseDir.'/Resources/config/routes.yaml')){
+            if (is_file($file = $baseDir.'/Resources/config/routes.yaml')) {
                 $routes->import($file);
             }
         }
     }
 
     /**
-     * @return iterable
      * @throws CoreException
+     *
+     * @return iterable
      */
     private function initializeModules(): iterable
     {
         $path = $this->getProjectDir().'/config/modules.php';
-        if(!is_file($path)){
+        if ( ! is_file($path)) {
             throw CoreException::modulesFileNotFound($path);
         }
 
         /** @var array $modules */
         $modules = require $path;
-        foreach($modules as $class){
+        foreach ($modules as $class) {
             yield new $class();
         }
     }
 
     private function configureModule(ContainerConfigurator $container, ModuleInterface $module): void
     {
-        $env = $this->getEnvironment();
+        $env       = $this->getEnvironment();
         $moduleDir = $module->getBaseDir();
-        $name = $module->getName();
+        $name      = $module->getName();
 
         $container->parameters()->set('eoffice.'.$name.'.module_dir', $moduleDir);
-        if (is_file($serviceConfig = $moduleDir . '/Resources/config/services.xml')) {
+        if (is_file($serviceConfig = $moduleDir.'/Resources/config/services.xml')) {
             $container->import($serviceConfig);
         }
-        if (is_file($envConfig = $moduleDir . '/Resources/config/{services}_' . $env . '.yaml')) {
+        if (is_file($envConfig = $moduleDir.'/Resources/config/{services}_'.$env.'.yaml')) {
             $container->import($envConfig);
         }
         $resourcesDir = $moduleDir.'/Resources';
-        $container->import($resourcesDir . '/{packages}/*.yaml');
-        $container->import($resourcesDir . '/{packages}/*.xml');
-        $container->import($resourcesDir . '/{packages}/' . $env . '/*.yaml');
-        $container->import($resourcesDir . '/{packages}/' . $env . '/*.xml');
+        $container->import($resourcesDir.'/{packages}/*.yaml');
+        $container->import($resourcesDir.'/{packages}/*.xml');
+        $container->import($resourcesDir.'/{packages}/'.$env.'/*.yaml');
+        $container->import($resourcesDir.'/{packages}/'.$env.'/*.xml');
     }
 }

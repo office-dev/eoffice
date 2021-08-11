@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace EOffice\User\Testing;
 
 use EOffice\Contracts\User\Model\UserInterface;
@@ -15,12 +26,11 @@ trait InteractsWithUser
     {
         $repo = $this->getUserRepository();
         $user = $repo->findOneBy(['username' => $username]);
-        if(null === $user){
+        if (null === $user) {
             $user = new User($username, $email, $password);
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush($user);
         }
-
     }
 
     public function iDontHaveUser(string $username)
@@ -28,8 +38,8 @@ trait InteractsWithUser
         /** @var UserRepository $repo */
         $repo = $this->getUserRepository();
         $user = $repo->loadUserByUsername($username);
-        if(null !== $user){
-            $this->getEntityManager()->remove($user);;
+        if (null !== $user) {
+            $this->getEntityManager()->remove($user);
             $this->getEntityManager()->flush();
         }
     }

@@ -1,10 +1,20 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace Functional\EOffice\User;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use EOffice\Testing\ApiTestCase;
-use EOffice\Testing\Concerns\InteractsWithORM;
 use EOffice\User\Testing\InteractsWithUser;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
@@ -13,7 +23,8 @@ use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
  */
 class SecurityApiTest extends ApiTestCase
 {
-    use InteractsWithUser, RefreshDatabaseTrait;
+    use InteractsWithUser;
+    use RefreshDatabaseTrait;
 
     private Client $client;
 
@@ -27,9 +38,9 @@ class SecurityApiTest extends ApiTestCase
     {
         $client = $this->client;
         $this->iHaveUser();
-        $client->request('POST', '/login', ['json' =>[
+        $client->request('POST', '/login', ['json' => [
             'username' => 'test',
-            'password' => 'test'
+            'password' => 'test',
         ]]);
 
         $this->assertResponseIsSuccessful();
