@@ -19,7 +19,6 @@ use EOffice\Contracts\User\Model\UserInterface;
 /**
  * @ApiResource
  *
- * @method string getUserIdentifier()
  * @psalm-suppress MixedReturnTypeCoercion
  * @psalm-suppress PropertyNotSetInConstructor
  */

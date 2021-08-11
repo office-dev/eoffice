@@ -1,0 +1,10 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults autowire="true" autoconfigure="true">
+        </defaults>
+        <service id="eoffice.passport.controllers.login" class="EOffice\Passport\Controller\LoginController">
+            <tag name="container.service_subscriber"/>
+        </service>
+        <service id="EOffice\Passport\Controller\LoginController" alias="eoffice.passport.controllers.login"/>
+    </services>
+</container>

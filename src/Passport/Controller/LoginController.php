@@ -14,10 +14,12 @@ declare(strict_types=1);
 namespace EOffice\Passport\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class LoginController extends AbstractController
 {
-    public function login()
+    public function login(UserInterface $user)
     {
+        return $this->json(['id' => $user->getUserIdentifier()]);
     }
 }

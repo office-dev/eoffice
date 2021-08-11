@@ -1,4 +1,4 @@
 login:
     path: /login
-    controller: EOffice\Pasport\Controller\LoginController::login
+    controller: eoffice.passport.controllers.login::login
     methods: POST

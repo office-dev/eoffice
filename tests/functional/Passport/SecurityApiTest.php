@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Functional\EOffice\User;
+namespace Functional\EOffice\Passport;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use EOffice\Testing\ApiTestCase;
@@ -44,5 +44,18 @@ class SecurityApiTest extends ApiTestCase
         ]]);
 
         $this->assertResponseIsSuccessful();
+    }
+
+    public function test_it_should_handle_invalid_login(): void
+    {
+        $client = $this->client;
+        $this->iHaveUser();
+        $client->request('POST', '/login', ['json' => [
+            'username' => 'test',
+            'password' => 'foo',
+        ]]);
+
+        $this->assertResponseStatusCodeSame(401);
+        $this->assertJsonContains(['error' => 'Invalid credentials.']);
     }
 }
