@@ -9,14 +9,19 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            lazy: true
+            stateless: true
             provider: api_user_provider
             json_login:
-                check_path: /login
+                check_path: /api/login
+                username_path: username
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
             switch_user: true
     password_hashers:
         EOffice\Contracts\User\Model\UserInterface:
             algorithm: bcrypt
     access_control:
         - { path: ^/api/users, roles: PUBLIC_ACCESS }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS}
         - { path: ^/api, roles: ROLE_USER }

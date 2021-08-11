@@ -1,4 +1,3 @@
-login:
-    path: /login
-    controller: eoffice.passport.controllers.login::login
+authentication_token:
+    path: /api/login
     methods: POST

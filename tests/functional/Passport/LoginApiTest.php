@@ -21,7 +21,7 @@ use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 /**
  * @covers \EOffice\User\UserModule
  */
-class SecurityApiTest extends ApiTestCase
+class LoginApiTest extends ApiTestCase
 {
     use InteractsWithUser;
     use RefreshDatabaseTrait;
@@ -38,7 +38,7 @@ class SecurityApiTest extends ApiTestCase
     {
         $client = $this->client;
         $this->iHaveUser();
-        $client->request('POST', '/login', ['json' => [
+        $client->request('POST', '/api/login', ['json' => [
             'username' => 'test',
             'password' => 'test',
         ]]);
@@ -50,12 +50,12 @@ class SecurityApiTest extends ApiTestCase
     {
         $client = $this->client;
         $this->iHaveUser();
-        $client->request('POST', '/login', ['json' => [
+        $client->request('POST', '/api/login', ['json' => [
             'username' => 'test',
             'password' => 'foo',
         ]]);
 
         $this->assertResponseStatusCodeSame(401);
-        $this->assertJsonContains(['error' => 'Invalid credentials.']);
+        $this->assertJsonContains(['message' => 'Invalid credentials.']);
     }
 }

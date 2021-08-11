@@ -111,10 +111,8 @@ jobs:
         if: matrix.coverage
         run: echo "COVERAGE=1" >> $GITHUB_ENV
         
-      - name: Prepare migration
-        run: |
-          ./bin/console doctrine:database:create --env=test
-          ./bin/console doctrine:schema:create --env=test
+      - name: Prepare testing environment
+        run: composer run prepare-test
 
       - name: PHPUnit
         run: |
