@@ -11,14 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\EOffice;
+namespace EOffice\Testing;
 
-use PHPUnit\Framework\TestCase;
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase as BaseTestCase;
 
-class FooTest extends TestCase
+class ApiTestCase extends BaseTestCase
 {
-    public function test_foo(): void
-    {
-        $this->assertSame('foo', 'foo');
-    }
 }

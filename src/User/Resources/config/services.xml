@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services">
+    <parameters>
+        <parameter key="eoffice.user.models.user">EOffice\User\Model\User</parameter>
+    </parameters>
+    <services>
+        <defaults autoconfigure="true" autowire="true"/>
+        <service id="eoffice.user.listeners.user" class="EOffice\User\Listener\UserListener">
+            <argument type="service" id="security.password_hasher"/>
+            <tag name="doctrine.event_subscriber"/>
+        </service>
+    </services>
+</container>

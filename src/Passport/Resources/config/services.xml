@@ -1,0 +1,6 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults autowire="true" autoconfigure="true">
+        </defaults>
+    </services>
+</container>

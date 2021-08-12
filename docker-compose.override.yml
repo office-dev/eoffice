@@ -1,0 +1,33 @@
+version: "3.4"
+
+# Development environment override
+services:
+  php:
+    volumes:
+      - ./:/srv/api:rw,cached
+      #- ./docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.ini
+      # if you develop on Linux, you may use a bind-mounted host directory instead
+      - ./var:/srv/api/var:rw
+    environment:
+      APP_ENV: dev
+
+  pwa:
+    build:
+      context: ./
+      dockerfile: ./assets/Dockerfile
+      target: eoffice_pwa_dev
+    volumes:
+      - ./assets:/usr/src/pwa:rw,cached
+
+  caddy:
+    volumes:
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./public:/srv/api/public:ro
+    environment:
+      MERCURE_EXTRA_DIRECTIVES: demo
+
+  database:
+    ports:
+      - target: 3306
+        published: 3306
+        protocol: tcp

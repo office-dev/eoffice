@@ -8,14 +8,17 @@
 >
     <projectFiles>
         <directory name="src"/>
-        <directory name="tests"/>
         <ignoreFiles>
+            <directory name="tests"/>
             <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
-        <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
         <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
-    </plugins>
+        <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
+    <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/></plugins>
+    <issueHandlers>
+        <MissingConstructor errorLevel="suppress"/>
+    </issueHandlers>
 </psalm>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- api/config/api_platform/resources.xml -->
+
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata
+        https://api-platform.com/schema/metadata/metadata-2.0.xsd">
+    <resource
+        class="EOffice\User\Model\User"
+        shortName="User"
+        description="User for this application"
+        iri="https://schema.org/Person"
+    >
+        <property name="id" identifier="true"/>
+        <property name="username"/>
+        <property name="email"/>
+        <property name="salt" readable="false"/>
+        <property name="plainPassword" readable="false" writable="true"/>
+        <property name="password" readable="false" writable="false"/>
+        <property name="roles"/>
+    </resource>
+</resources>
