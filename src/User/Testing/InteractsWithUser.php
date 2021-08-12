@@ -22,7 +22,7 @@ trait InteractsWithUser
 {
     use InteractsWithORM;
 
-    public function iHaveUser(string $username = 'test', string $email='test@example.org', string $password = 'test'): void
+    public function iHaveUser(string $username = 'test', string $email='test@example.org', string $password = 'test')
     {
         $repo = $this->getUserRepository();
         $user = $repo->findOneBy(['username' => $username]);
@@ -31,6 +31,7 @@ trait InteractsWithUser
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush($user);
         }
+        return $user;
     }
 
     public function iDontHaveUser(string $username)

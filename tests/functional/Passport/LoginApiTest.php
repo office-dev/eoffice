@@ -38,7 +38,7 @@ class LoginApiTest extends ApiTestCase
     {
         $client = $this->client;
         $this->iHaveUser();
-        $response = $client->request('POST', '/api/login', ['json' => [
+        $response = $client->request('POST', '/login', ['json' => [
             'username' => 'test',
             'password' => 'test',
         ]]);
@@ -52,7 +52,7 @@ class LoginApiTest extends ApiTestCase
     {
         $client = $this->client;
         $this->iHaveUser();
-        $client->request('POST', '/api/login', ['json' => [
+        $client->request('POST', '/login', ['json' => [
             'username' => 'test',
             'password' => 'foo',
         ]]);

@@ -94,7 +94,8 @@
         "symfony/translation": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
         "symfony/validator": "5.3.*",
-        "symfony/yaml": "5.3.*"
+        "symfony/yaml": "5.3.*",
+      "ext-json": "*"
     },
     "require-dev": {
         "behat/behat": "^3.8",
