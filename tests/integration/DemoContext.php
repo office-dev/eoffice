@@ -44,7 +44,6 @@ final class DemoContext implements Context, ContainerAwareInterface
         $this->kernel = $container->get('kernel');
     }
 
-
     /**
      * @When a demo scenario sends a request to :path
      */
