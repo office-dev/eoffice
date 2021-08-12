@@ -121,6 +121,7 @@ CMD ["php-fpm"]
 # depends on the "php" stage above
 FROM caddy:${CADDY_VERSION}-builder-alpine AS eoffice_caddy_builder
 
+
 # install Mercure and Vulcain modules
 RUN xcaddy build \
     --with github.com/dunglas/mercure \
