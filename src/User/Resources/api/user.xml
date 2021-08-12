@@ -14,7 +14,8 @@
         <property name="id" identifier="true"/>
         <property name="username"/>
         <property name="email"/>
-        <property name="plainPassword" readable="false"/>
+        <property name="salt" readable="false"/>
+        <property name="plainPassword" readable="false" writable="true"/>
         <property name="password" readable="false" writable="false"/>
         <property name="roles"/>
     </resource>

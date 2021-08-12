@@ -6,6 +6,8 @@ default:
 
     extensions:
         FriendsOfBehat\SymfonyExtension:
+            #bootstrap: ./config/preload.php
             kernel:
-                class: EOffice\Core\Kernel
-                debug: true
+                #class: EOffice\Kernel
+                #debug: true
+                environment: test

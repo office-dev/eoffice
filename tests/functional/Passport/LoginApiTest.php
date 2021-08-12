@@ -38,12 +38,14 @@ class LoginApiTest extends ApiTestCase
     {
         $client = $this->client;
         $this->iHaveUser();
-        $client->request('POST', '/api/login', ['json' => [
+        $response = $client->request('POST', '/api/login', ['json' => [
             'username' => 'test',
             'password' => 'test',
         ]]);
 
         $this->assertResponseIsSuccessful();
+        $data = $response->toArray();
+        $this->assertArrayHasKey('token', $data);
     }
 
     public function test_it_should_handle_invalid_login(): void

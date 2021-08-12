@@ -13,12 +13,9 @@ declare(strict_types=1);
 
 namespace EOffice\User\Model;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use EOffice\Contracts\User\Model\UserInterface;
 
 /**
- * @ApiResource
- *
  * @psalm-suppress MixedReturnTypeCoercion
  * @psalm-suppress PropertyNotSetInConstructor
  */

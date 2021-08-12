@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Integration\EOffice;
 
 use Behat\Behat\Context\Context;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -24,7 +26,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * @see http://behat.org/en/latest/quick_start.html
  */
-final class DemoContext implements Context
+final class DemoContext implements Context, ContainerAwareInterface
 {
     /** @var KernelInterface */
     private $kernel;
@@ -36,6 +38,12 @@ final class DemoContext implements Context
     {
         $this->kernel = $kernel;
     }
+
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->kernel = $container->get('kernel');
+    }
+
 
     /**
      * @When a demo scenario sends a request to :path

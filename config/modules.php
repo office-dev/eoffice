@@ -14,4 +14,5 @@ declare(strict_types=1);
 return [
     EOffice\User\UserModule::class,
     EOffice\Passport\PassportModule::class,
+    EOffice\Resource\ResourceModule::class,
 ];

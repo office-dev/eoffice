@@ -20,7 +20,8 @@
     },
     "autoload": {
         "psr-4": {
-            "EOffice\\": "src/"
+            "EOffice\\": "src/",
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
@@ -41,6 +42,7 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "prepare-test": [
+            "@php ./bin/console cache:clear --env=test",
             "@php ./bin/console doctrine:database:create --env=test",
             "@php ./bin/console doctrine:schema:create --env=test",
             "@php ./bin/console lexik:jwt:generate-keypair --env=test"
@@ -89,14 +91,17 @@
         "symfony/runtime": "5.3.*",
         "symfony/security-bundle": "5.3.*",
         "symfony/serializer": "5.3.*",
+        "symfony/translation": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
         "symfony/validator": "5.3.*",
-        "symfony/webpack-encore-bundle": "^1.12",
         "symfony/yaml": "5.3.*"
     },
     "require-dev": {
+        "behat/behat": "^3.8",
+        "behatch/contexts": "^3.3",
+        "friends-of-behat/mink": "^1.9",
         "friends-of-behat/mink-extension": "^2.5",
-        "friends-of-behat/symfony-extension": "^2.2",
+        "friends-of-behat/symfony-extension": "^2.1",
         "friendsofphp/php-cs-fixer": "^3.0",
         "hautelook/alice-bundle": "^2.9",
         "mockery/mockery": "^1.4",

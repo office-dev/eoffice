@@ -37,7 +37,7 @@ RUN set -eux; \
 	docker-php-ext-configure zip; \
 	docker-php-ext-install -j$(nproc) \
 		intl \
-		pdo_pgsql \
+		pdo_mysql \
 		zip \
 	; \
 	pecl install \
@@ -47,6 +47,7 @@ RUN set -eux; \
 	docker-php-ext-enable \
 		apcu \
 		opcache \
+    	pdo_mysql \
 	; \
 	\
 	runDeps="$( \
