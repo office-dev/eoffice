@@ -6,7 +6,7 @@ on:
 
 jobs:
   php-cs-fixer:
-    name: PHP-cs-fixer (PHP ${{ matrix.php }})
+    name: PHP-CS-FIXER (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
