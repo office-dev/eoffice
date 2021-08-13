@@ -31,3 +31,4 @@
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 node_modules
+build

@@ -70,10 +70,12 @@
         "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "api-platform/core": "^2.6",
         "composer/package-versions-deprecated": "1.11.99.2",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.4",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.9",
         "lexik/jwt-authentication-bundle": "^2.12",
@@ -94,8 +96,7 @@
         "symfony/translation": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
         "symfony/validator": "5.3.*",
-        "symfony/yaml": "5.3.*",
-      "ext-json": "*"
+        "symfony/yaml": "5.3.*"
     },
     "require-dev": {
         "behat/behat": "^3.8",
@@ -104,7 +105,7 @@
         "friends-of-behat/mink-extension": "^2.5",
         "friends-of-behat/symfony-extension": "^2.1",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "hautelook/alice-bundle": "^2.9",
+        "liip/test-fixtures-bundle": "^1.12",
         "mockery/mockery": "^1.4",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^0.12.94",

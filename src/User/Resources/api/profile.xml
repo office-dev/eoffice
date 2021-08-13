@@ -10,10 +10,10 @@
         shortName="Profile"
         description="User Profile for this application"
     >
-        <attribute name="security">isGranted('ROLE_USER')</attribute>
-        <property name="id" identifier="true"/>
+        <attribute name="security">is_granted('ROLE_USER')</attribute>
+        <property name="id" identifier="true" writable="false" readable="true"/>
         <property name="nama"/>
-        <property name="userId"/>
+        <property name="userId" readable="true" writable="false"/>
         <property name="jabatanId"/>
     </resource>
 </resources>

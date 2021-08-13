@@ -18,7 +18,15 @@ use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 
 interface UserInterface extends PasswordAuthenticatedUserInterface, SecurityUserInterface
 {
+    public function getId(): string;
+
+    public function getPassword(): ?string;
+
     public function getPlainPassword(): ?string;
 
     public function setPassword(string $password);
+
+    public function getEmail(): string;
+
+    public function getUsername(): string;
 }

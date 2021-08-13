@@ -20,11 +20,11 @@ use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 /**
  * @covers \EOffice\User\UserModule
+ * @covers \EOffice\User\Repository\UserRepository
  */
 class LoginApiTest extends ApiTestCase
 {
     use InteractsWithUser;
-    use RefreshDatabaseTrait;
 
     private Client $client;
 

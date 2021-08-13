@@ -13,14 +13,12 @@ class Profile
 
     /**
      * Profile constructor.
-     * @param string $id
      * @param string $nama
      * @param string $userId
      * @param string $jabatanId
      */
-    public function __construct(string $id, string $nama, string $userId, string $jabatanId)
+    public function __construct(string $nama, string $userId, string $jabatanId)
     {
-        $this->id = $id;
         $this->nama = $nama;
         $this->userId = $userId;
         $this->jabatanId = $jabatanId;
