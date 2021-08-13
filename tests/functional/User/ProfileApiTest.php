@@ -23,12 +23,12 @@ use EOffice\User\Testing\InteractsWithUser;
  */
 class ProfileApiTest extends ApiTestCase
 {
-    use InteractsWithUser;
     use InteractsWithProfile;
+    use InteractsWithUser;
 
     public function test_create_profile()
     {
-        $user = $this->iHaveUser('admin');
+        $user   = $this->iHaveUser('admin');
         $client = $this->iHaveLoggedInAsUser('admin', 'admin');
 
         $response = $client->request('POST', '/api/profiles', ['json' => [
@@ -49,16 +49,16 @@ class ProfileApiTest extends ApiTestCase
     public function test_get_profile()
     {
         // login dulu sebelum edit profile
-        $user = $this->iHaveUser('test');
+        $user    = $this->iHaveUser('test');
         $profile = $this->iHaveProfileForUser($user);
-        $client = $this->iHaveLoggedInAsUser('test', 'test');
+        $client  = $this->iHaveLoggedInAsUser('test', 'test');
 
         // update profile dengan method: PUT , dan profile id
         // Ingat! Sesuai dokumentasi api yang digunakan adalah profile id
         $iri = $this->findIriBy(Profile::class, ['id' => $profile->getId()]);
-        $client->request('PUT', $iri,['json' => [
+        $client->request('PUT', $iri, ['json' => [
             'nama' => 'Nama Edited',
-            'jabatanId' => $profile->getJabatanId()
+            'jabatanId' => $profile->getJabatanId(),
         ]]);
 
         $this->assertResponseIsSuccessful('foo');

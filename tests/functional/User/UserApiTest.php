@@ -17,7 +17,6 @@ use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use EOffice\Testing\Concerns\InteractsWithORM;
 use EOffice\User\Testing\InteractsWithUser;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 /**
  * @covers \EOffice\User\Model\User

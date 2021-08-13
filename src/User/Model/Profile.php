@@ -1,8 +1,17 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace EOffice\User\Model;
-
 
 class Profile
 {
@@ -13,14 +22,15 @@ class Profile
 
     /**
      * Profile constructor.
+     *
      * @param string $nama
      * @param string $userId
      * @param string $jabatanId
      */
     public function __construct(string $nama, string $userId, string $jabatanId)
     {
-        $this->nama = $nama;
-        $this->userId = $userId;
+        $this->nama      = $nama;
+        $this->userId    = $userId;
         $this->jabatanId = $jabatanId;
     }
 
@@ -55,6 +65,4 @@ class Profile
     {
         return $this->jabatanId;
     }
-
-
 }

@@ -16,7 +16,6 @@ namespace Functional\EOffice\Passport;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use EOffice\Testing\ApiTestCase;
 use EOffice\User\Testing\InteractsWithUser;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 /**
  * @covers \EOffice\User\UserModule

@@ -18,7 +18,6 @@ use EOffice\Contracts\User\Model\UserInterface;
 use EOffice\Testing\Concerns\InteractsWithORM;
 use EOffice\User\Model\User;
 use EOffice\User\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 trait InteractsWithUser
 {
@@ -26,6 +25,7 @@ trait InteractsWithUser
 
     /**
      * @param UserInterface $user
+     *
      * @return Client
      */
     protected function iHaveLoggedInAsUser(string $userName, string $password): Client
@@ -34,8 +34,9 @@ trait InteractsWithUser
             'username' => $userName,
             'password' => $password,
         ]]);
-        $data = json_decode($response->getContent());
+        $data  = json_decode($response->getContent());
         $token = $data->token;
+
         return static::createClient([], ['headers' => ['authorization' => 'Bearer '.$token]]);
     }
 
@@ -48,6 +49,7 @@ trait InteractsWithUser
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush($user);
         }
+
         return $user;
     }
 

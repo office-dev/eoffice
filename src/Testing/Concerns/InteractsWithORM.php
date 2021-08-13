@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace EOffice\Testing\Concerns;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\ToolsException;
@@ -26,11 +25,11 @@ trait InteractsWithORM
 
     protected function refreshDatabase(): void
     {
-        if(false === static::$databaseRefreshed){
-            $em = $this->getEntityManager();
+        if (false === static::$databaseRefreshed) {
+            $em   = $this->getEntityManager();
             $meta = $em->getMetadataFactory()->getAllMetadata();
 
-            if (!empty($meta)) {
+            if ( ! empty($meta)) {
                 $tool = new SchemaTool($em);
                 $tool->dropSchema($meta);
                 try {
@@ -46,9 +45,7 @@ trait InteractsWithORM
     {
         $databaseTool = $this->getContainer()
             ->get('liip_test_fixtures.services.fixtures_loader_factory')
-            ->getFixtureLoader([UserFixtures::class, ProfileFixtures::class])
-
-        ;
+            ->getFixtureLoader([UserFixtures::class, ProfileFixtures::class]);
         $manager = $this->getEntityManager();
         $databaseTool->getFixture(UserFixtures::class)->load($manager);
         $databaseTool->getFixture(ProfileFixtures::class)->load($manager);

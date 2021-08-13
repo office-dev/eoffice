@@ -26,5 +26,4 @@ abstract class ApiTestCase extends BaseTestCase
         $this->refreshDatabase();
         $this->loadFixtures();
     }
-
 }

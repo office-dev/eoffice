@@ -1,14 +1,18 @@
 <?php
 
-namespace EOffice\Testing\Concerns;
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-use Doctrine\ORM\Tools\SchemaTool;
-use Doctrine\ORM\Tools\ToolsException;
-use EOffice\User\Fixtures\ProfileFixtures;
-use EOffice\User\Fixtures\UserFixtures;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+declare(strict_types=1);
+
+namespace EOffice\Testing\Concerns;
 
 trait RefreshDatabaseTrait
 {
-
 }
