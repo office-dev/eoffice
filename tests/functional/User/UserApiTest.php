@@ -27,7 +27,6 @@ class UserApiTest extends ApiTestCase
 {
     use InteractsWithORM;
     use InteractsWithUser;
-    use RefreshDatabaseTrait;
 
     private Client $client;
 
@@ -40,15 +39,15 @@ class UserApiTest extends ApiTestCase
     public function test_create_user()
     {
         $response = $this->client->request('POST', '/api/users', ['json' => [
-            'username' => 'test',
-            'email' => 'test@example.org',
-            'plainPassword' => 'test',
+            'username' => 'create',
+            'email' => 'create@example.org',
+            'plainPassword' => 'create',
         ],
         ]);
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
-        $this->assertJsonContains(['username' => 'test']);
+        $this->assertJsonContains(['username' => 'create']);
 
         $json = $response->toArray();
         $this->assertArrayNotHasKey('password', $json);

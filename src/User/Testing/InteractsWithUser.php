@@ -13,16 +13,33 @@ declare(strict_types=1);
 
 namespace EOffice\User\Testing;
 
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use EOffice\Contracts\User\Model\UserInterface;
 use EOffice\Testing\Concerns\InteractsWithORM;
 use EOffice\User\Model\User;
 use EOffice\User\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 trait InteractsWithUser
 {
     use InteractsWithORM;
 
-    public function iHaveUser(string $username = 'test', string $email='test@example.org', string $password = 'test'): void
+    /**
+     * @param UserInterface $user
+     * @return Client
+     */
+    protected function iHaveLoggedInAsUser(string $userName, string $password): Client
+    {
+        $response = static::createClient()->request('POST', '/login', ['json' => [
+            'username' => $userName,
+            'password' => $password,
+        ]]);
+        $data = json_decode($response->getContent());
+        $token = $data->token;
+        return static::createClient([], ['headers' => ['authorization' => 'Bearer '.$token]]);
+    }
+
+    protected function iHaveUser(string $username = 'test', string $email='test@example.org', string $password = 'test'): UserInterface
     {
         $repo = $this->getUserRepository();
         $user = $repo->findOneBy(['username' => $username]);
@@ -31,9 +48,10 @@ trait InteractsWithUser
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush($user);
         }
+        return $user;
     }
 
-    public function iDontHaveUser(string $username)
+    protected function iDontHaveUser(string $username)
     {
         /** @var UserRepository $repo */
         $repo = $this->getUserRepository();
@@ -47,7 +65,7 @@ trait InteractsWithUser
     /**
      * @return \Doctrine\ORM\EntityRepository|\Doctrine\Persistence\ObjectRepository
      */
-    public function getUserRepository()
+    protected function getUserRepository()
     {
         return $this->getEntityManager()->getRepository(UserInterface::class);
     }

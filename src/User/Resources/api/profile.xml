@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- api/config/api_platform/resources.xml -->
+
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata
+        https://api-platform.com/schema/metadata/metadata-2.0.xsd">
+    <resource
+        class="EOffice\User\Model\Profile"
+        shortName="Profile"
+        description="User Profile for this application"
+    >
+        <attribute name="security">is_granted('ROLE_USER')</attribute>
+        <property name="id" identifier="true" writable="false" readable="true"/>
+        <property name="nama"/>
+        <property name="userId" readable="true" writable="false"/>
+        <property name="jabatanId"/>
+    </resource>
+</resources>

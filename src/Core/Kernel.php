@@ -107,7 +107,7 @@ class Kernel extends BaseKernel
      *
      * @return iterable
      */
-    private function initializeModules(): iterable
+    protected function initializeModules(): iterable
     {
         $path = $this->getProjectDir().'/config/modules.php';
         if ( ! is_file($path)) {
@@ -121,7 +121,7 @@ class Kernel extends BaseKernel
         }
     }
 
-    private function configureModule(ContainerConfigurator $container, ModuleInterface $module): void
+    protected function configureModule(ContainerConfigurator $container, ModuleInterface $module): void
     {
         $env       = $this->getEnvironment();
         $moduleDir = $module->getBaseDir();

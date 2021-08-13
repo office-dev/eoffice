@@ -14,7 +14,17 @@ declare(strict_types=1);
 namespace EOffice\Testing;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase as BaseTestCase;
+use EOffice\Testing\Concerns\InteractsWithORM;
 
-class ApiTestCase extends BaseTestCase
+abstract class ApiTestCase extends BaseTestCase
 {
+    use InteractsWithORM;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->refreshDatabase();
+        $this->loadFixtures();
+    }
+
 }
