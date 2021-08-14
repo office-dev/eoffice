@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="EOffice\User\Model\Profile">
+        <id name="id">
+            <generator strategy="UUID"/>
+        </id>
+        <field name="nama" unique="true"/>
+        <field name="jabatanId" unique="true"/>
+        <field name="userId" unique="true"/>
+
+    </entity>
+</doctrine-mapping>

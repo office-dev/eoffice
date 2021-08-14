@@ -8,11 +8,15 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api/
+            stateless: true
+            provider: api_user_provider
         main:
             stateless: true
             provider: api_user_provider
             json_login:
-                check_path: /api/login
+                check_path: /login
                 username_path: username
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -23,6 +27,6 @@ security:
             algorithm: bcrypt
     access_control:
         - { path: ^/api/users, roles: PUBLIC_ACCESS }
-        - { path: ^/api/login, roles: PUBLIC_ACCESS}
+        - { path: ^/login, roles: PUBLIC_ACCESS}
         - { path: ^/api/docs, roles: PUBLIC_ACCESS}
         - { path: ^/api, roles: ROLE_USER }
