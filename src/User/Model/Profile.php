@@ -1,29 +1,35 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace EOffice\User\Model;
 
+use EOffice\Contracts\User\Model\ProfileInterface;
+use EOffice\Contracts\User\Model\UserInterface;
 
-class Profile
+class Profile implements ProfileInterface
 {
     protected string $id;
     protected string $nama;
-    protected string $userId;
-    protected string $jabatanId;
+    protected ?UserInterface $user;
 
     /**
-     * Profile constructor.
-     * @param string $id
-     * @param string $nama
-     * @param string $userId
-     * @param string $jabatanId
+     * @param string        $nama
+     * @param UserInterface $user
      */
-    public function __construct(string $id, string $nama, string $userId, string $jabatanId)
+    public function __construct(string $nama, UserInterface $user = null)
     {
-        $this->id = $id;
-        $this->nama = $nama;
-        $this->userId = $userId;
-        $this->jabatanId = $jabatanId;
+        $this->nama      = $nama;
+        $this->user      = $user;
     }
 
     /**
@@ -43,20 +49,26 @@ class Profile
     }
 
     /**
-     * @return string
+     * @param string $nama
      */
-    public function getUserId(): string
+    public function setNama(string $nama): void
     {
-        return $this->userId;
+        $this->nama = $nama;
     }
 
     /**
-     * @return string
+     * @return UserInterface|null
      */
-    public function getJabatanId(): string
+    public function getUser(): ?UserInterface
     {
-        return $this->jabatanId;
+        return $this->user;
     }
 
-
+    /**
+     * @param UserInterface|null $user
+     */
+    public function setUser(?UserInterface $user): void
+    {
+        $this->user = $user;
+    }
 }

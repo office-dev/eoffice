@@ -13,19 +13,18 @@ declare(strict_types=1);
 
 namespace Functional\EOffice\Core;
 
-use EOffice\Core\Kernel;
 use EOffice\Testing\FunctionalTestCase;
 
 /**
- * @covers \EOffice\Core\Kernel
+ * @covers \EOffice\Core\Application\Kernel
  */
 class KernelTest extends FunctionalTestCase
 {
-    public function test_foo(): void
+    public function test_module_loading(): void
     {
         $container = $this->getContainer();
 
-        /** @var Kernel $kernel */
+        /** @var \EOffice\Core\Application\Kernel $kernel */
         $kernel  = $container->get('kernel');
         $modules = $kernel->getModules();
 

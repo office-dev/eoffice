@@ -8,3 +8,4 @@ doctrine:
                 prefix: EOffice\User\Model
         resolve_target_entities:
             EOffice\Contracts\User\Model\UserInterface: "%eoffice.user.models.user%"
+            EOffice\Contracts\User\Model\ProfileInterface: "%eoffice.user.models.profile%"

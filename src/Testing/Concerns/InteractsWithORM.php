@@ -13,12 +13,16 @@ declare(strict_types=1);
 
 namespace EOffice\Testing\Concerns;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\ObjectManager;
 
 trait InteractsWithORM
 {
-    public function getEntityManager(): EntityManager
+    protected function getEntityManager(string $class = null): ObjectManager
     {
-        return $this->getContainer()->get('doctrine.orm.entity_manager');
+        if (null !== $class) {
+            return $this->getContainer()->get('doctrine')->getManagerForClass($class);
+        }
+
+        return $this->getContainer()->get('doctrine')->getManager();
     }
 }

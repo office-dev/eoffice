@@ -14,33 +14,14 @@ declare(strict_types=1);
 namespace EOffice\Testing;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase as BaseTestCase;
+use EOffice\Testing\Concerns\InteractsWithORM;
 
-class ApiTestCase extends BaseTestCase
+abstract class ApiTestCase extends BaseTestCase
 {
-    protected ?string $token = null;
-    protected function createClientWithCredentials()
+    use InteractsWithORM;
+
+    protected function setUp(): void
     {
-        $token = $this->getToken();
-        return $this->createClient([], ['headers' => ['authorization' => 'Bearer '.$token]]);
-    }
-
-    /**
-     * Use other credentials if needed.
-     */
-    protected function getToken($body = []): string
-    {
-        if ($this->token) {
-            return $this->token;
-        }
-
-        $response = $this->createClient()->request('POST', '/login', ['json' => [
-            'username' => 'test',
-            'password' => 'test',
-        ]]);
-
-        $this->assertResponseIsSuccessful();
-        $data = json_decode($response->getContent());
-        $this->token = $data->token;
-        return $data->token;
+        parent::setUp();
     }
 }

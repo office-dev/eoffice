@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-use EOffice\Core\Kernel;
+use EOffice\Core\Application\Kernel;
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 

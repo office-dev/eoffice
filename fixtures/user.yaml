@@ -1,0 +1,7 @@
+EOffice\User\Model\User:
+    admin:
+        __factory: {'@eoffice.user.fixtures.test_loader::createUser': ['admin', 'admin@example.org', 'admin'] }
+    test:
+        __factory: {'@eoffice.user.fixtures.test_loader::createUser': ['test', 'test@example.org', 'test']}
+    test_profile:
+        __factory: {'@eoffice.user.fixtures.test_loader::createUser': ['test_profile', 'test_profile@example.org', 'test']}

@@ -1,0 +1,10 @@
+doctrine:
+    orm:
+        mappings:
+            EOffice\Organization\Model:
+                type: xml
+                is_bundle: false
+                dir: "%eoffice.organization.module_dir%/Resources/doctrine"
+                prefix: EOffice\Organization\Model
+        resolve_target_entities:
+            EOffice\Contracts\Organization\Model\JabatanInterface: "%eoffice.organization.models.jabatan%"

@@ -13,12 +13,19 @@ declare(strict_types=1);
 
 namespace EOffice\Contracts\User\Model;
 
+use EOffice\Contracts\Resource\ResourceInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 
-interface UserInterface extends PasswordAuthenticatedUserInterface, SecurityUserInterface
+interface UserInterface extends ResourceInterface, PasswordAuthenticatedUserInterface, SecurityUserInterface
 {
+    public function getPassword(): ?string;
+
     public function getPlainPassword(): ?string;
 
     public function setPassword(string $password);
+
+    public function getEmail(): string;
+
+    public function getUsername(): string;
 }

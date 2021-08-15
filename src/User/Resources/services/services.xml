@@ -2,6 +2,7 @@
 <container xmlns="http://symfony.com/schema/dic/services">
     <parameters>
         <parameter key="eoffice.user.models.user">EOffice\User\Model\User</parameter>
+        <parameter key="eoffice.user.models.profile">EOffice\User\Model\Profile</parameter>
     </parameters>
     <services>
         <defaults autoconfigure="true" autowire="true"/>

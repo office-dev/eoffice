@@ -1,0 +1,10 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity
+        name="EOffice\Organization\Model\Jabatan"
+    >
+        <id name="id">
+            <generator strategy="UUID"/>
+        </id>
+        <field name="nama"/>
+    </entity>
+</doctrine-mapping>
