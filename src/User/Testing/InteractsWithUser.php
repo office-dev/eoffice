@@ -37,7 +37,7 @@ trait InteractsWithUser
 
         /** @var \stdClass $data */
         $data  = json_decode($response->getContent());
-        $token = (string)$data->token;
+        $token = (string) $data->token;
 
         return static::createClient([], ['headers' => ['authorization' => 'Bearer '.$token]]);
     }
@@ -46,7 +46,7 @@ trait InteractsWithUser
     {
         $repo = $this->getUserRepository();
         $user = $repo->findOneBy(['username' => $username]);
-        $em = $this->getUserEntityManager();
+        $em   = $this->getUserEntityManager();
         if (null === $user) {
             $user = new User($username, $email, $password);
             $em->persist($user);
@@ -63,7 +63,7 @@ trait InteractsWithUser
         /** @var UserRepository $repo */
         $repo = $this->getUserRepository();
         $user = $repo->loadUserByIdentifier($username);
-        $em = $this->getUserEntityManager();
+        $em   = $this->getUserEntityManager();
         if (null !== $user) {
             $em->remove($user);
             $em->flush();
@@ -80,7 +80,8 @@ trait InteractsWithUser
 
     public function getUserEntityManager()
     {
-        $model = (string)$this->getContainer()->getParameter('eoffice.user.models.user');
+        $model = (string) $this->getContainer()->getParameter('eoffice.user.models.user');
+
         return $this->getEntityManager($model);
     }
 }

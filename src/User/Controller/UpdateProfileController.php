@@ -19,6 +19,5 @@ class UpdateProfileController extends AbstractController
 {
     public function __invoke(string $userId)
     {
-
     }
 }

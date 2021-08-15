@@ -19,9 +19,10 @@ trait InteractsWithORM
 {
     protected function getEntityManager(string $class = null): ObjectManager
     {
-        if(null !== $class){
+        if (null !== $class) {
             return $this->getContainer()->get('doctrine')->getManagerForClass($class);
         }
+
         return $this->getContainer()->get('doctrine')->getManager();
     }
 }

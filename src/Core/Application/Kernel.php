@@ -56,7 +56,7 @@ class Kernel extends BaseKernel
 
     protected function configureContainer(ContainerConfigurator $container): void
     {
-        $env = $this->getEnvironment();
+        $env        = $this->getEnvironment();
         $projectDir = $this->getProjectDir();
 
         $container->import($projectDir.'/config/{packages}/*.yaml');
@@ -76,7 +76,7 @@ class Kernel extends BaseKernel
 
     protected function configureRoutes(RoutingConfigurator $routes): void
     {
-        $env = $this->getEnvironment();
+        $env        = $this->getEnvironment();
         $projectDir = $this->getProjectDir();
         $routes->import($projectDir.'/config/{routes}/'.$env.'/*.yaml');
         $routes->import($projectDir.'/config/{routes}/*.yaml');
@@ -128,7 +128,7 @@ class Kernel extends BaseKernel
             $container->import($envConfig);
         }
         $resourcesDir = $moduleDir.'/Resources';
-        if(is_dir($resourcesDir)){
+        if (is_dir($resourcesDir)) {
             // load override package
             $container->import($resourcesDir.'/{packages}/*.yaml');
             $container->import($resourcesDir.'/{packages}/*.xml');

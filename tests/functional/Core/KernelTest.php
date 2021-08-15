@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Functional\EOffice\Core;
 
-use EOffice\Core\Application\Kernel;
 use EOffice\Testing\FunctionalTestCase;
-use EOffice\User\Model\User;
 
 /**
  * @covers \EOffice\Core\Application\Kernel

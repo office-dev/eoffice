@@ -13,10 +13,9 @@ declare(strict_types=1);
 
 namespace Functional\EOffice\Passport;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use EOffice\Testing\ApiTestCase;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use EOffice\User\Testing\InteractsWithUser;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 /**
  * @covers \EOffice\User\UserModule
@@ -24,7 +23,8 @@ use EOffice\User\Testing\InteractsWithUser;
  */
 class LoginApiTest extends ApiTestCase
 {
-    use InteractsWithUser, RefreshDatabaseTrait;
+    use InteractsWithUser;
+    use RefreshDatabaseTrait;
 
     public function test_it_should_handle_user_login(): void
     {

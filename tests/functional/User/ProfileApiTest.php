@@ -28,20 +28,19 @@ use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
  */
 class ProfileApiTest extends ApiTestCase
 {
+    use InteractsWithOrganization;
     use InteractsWithProfile;
     use InteractsWithUser;
-    use InteractsWithOrganization;
     use RefreshDatabaseTrait;
 
     public function test_create_profile()
     {
-        $user = $this->iHaveUser('test_profile');
+        $user   = $this->iHaveUser('test_profile');
         $client = $this->iHaveLoggedInAsUser('test_profile', 'test');
-
 
         $response = $client->request('POST', '/api/profiles', ['json' => [
             'nama' => 'Bagong Handoko',
-            "user_id" => $user->getId()
+            'user_id' => $user->getId(),
         ]]);
 
         $this->assertResponseIsSuccessful();

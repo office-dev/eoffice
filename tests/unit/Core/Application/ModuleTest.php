@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace Tests\EOffice\Core\Application;
 
 use EOffice\Testing\TestCase;
@@ -19,10 +30,10 @@ class ModuleTest extends TestCase
     public function test_it_should_return_base_dir()
     {
         $module = new TestModule();
-        $r = new \ReflectionClass($module);
+        $r      = new \ReflectionClass($module);
 
         $this->assertSame(
-            dirname($r->getFileName()),
+            \dirname($r->getFileName()),
             $module->getBaseDir()
         );
     }

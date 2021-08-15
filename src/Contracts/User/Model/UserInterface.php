@@ -17,10 +17,7 @@ use EOffice\Contracts\Resource\ResourceInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 
-interface UserInterface extends
-    ResourceInterface,
-    PasswordAuthenticatedUserInterface,
-    SecurityUserInterface
+interface UserInterface extends ResourceInterface, PasswordAuthenticatedUserInterface, SecurityUserInterface
 {
     public function getPassword(): ?string;
 

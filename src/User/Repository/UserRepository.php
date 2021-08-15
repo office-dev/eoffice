@@ -21,6 +21,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
 {
     /**
      * @param string $identifier
+     *
      * @return UserInterface|void|null
      */
     public function loadUserByIdentifier(string $identifier)

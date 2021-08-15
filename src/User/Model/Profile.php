@@ -24,14 +24,14 @@ class Profile implements ProfileInterface
     protected ?UserInterface $user;
 
     /**
-     * @param string $nama
-     * @param UserInterface $user
+     * @param string           $nama
+     * @param UserInterface    $user
      * @param JabatanInterface $jabatan
      */
     public function __construct(string $nama, UserInterface $user = null)
     {
         $this->nama      = $nama;
-        $this->user = $user;
+        $this->user      = $user;
     }
 
     /**

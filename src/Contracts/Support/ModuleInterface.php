@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace EOffice\Contracts\Support;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
 interface ModuleInterface
 {
     public function getName(): string;
