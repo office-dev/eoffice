@@ -20,6 +20,31 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
     /**
+     * @param string $identifier
+     * @return UserInterface|void|null
+     */
+    public function loadUserByIdentifier(string $identifier)
+    {
+        $em  = $this->getentityManager();
+        $dql = <<<EOC
+SELECT u
+FROM EOffice\Contracts\User\Model\UserInterface u
+WHERE u.username = :query
+OR u.email = :query
+EOC;
+
+        $user = $em->createQuery($dql)
+            ->setParameter('query', $identifier)
+            ->getOneOrNullResult();
+
+        if (null !== $user) {
+            \assert($user instanceof UserInterface);
+        }
+
+        return $user;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function loadUserByUsername(string $username)

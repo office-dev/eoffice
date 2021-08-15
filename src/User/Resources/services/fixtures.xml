@@ -1,0 +1,8 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" autowire="true" autoconfigure="true"/>
+        <service id="eoffice.user.fixtures.test_loader" class="EOffice\User\Fixtures\UserLoader">
+            <argument type="service" id="doctrine"/>
+        </service>
+    </services>
+</container>

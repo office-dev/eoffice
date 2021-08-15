@@ -1,0 +1,5 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <parameters>
+        <parameter key="eoffice.organization.models.jabatan">EOffice\Organization\Model\Jabatan</parameter>
+    </parameters>
+</container>

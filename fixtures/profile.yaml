@@ -1,0 +1,4 @@
+EOffice\User\Model\Profile:
+    profile1:
+        __factory: {'@eoffice.user.fixtures.test_loader::createProfile': ['<name()>', '@test']}
+

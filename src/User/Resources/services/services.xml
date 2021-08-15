@@ -2,7 +2,7 @@
 <container xmlns="http://symfony.com/schema/dic/services">
     <parameters>
         <parameter key="eoffice.user.models.user">EOffice\User\Model\User</parameter>
-
+        <parameter key="eoffice.user.models.profile">EOffice\User\Model\Profile</parameter>
     </parameters>
     <services>
         <defaults autoconfigure="true" autowire="true"/>
@@ -10,12 +10,5 @@
             <argument type="service" id="security.password_hasher"/>
             <tag name="doctrine.event_subscriber"/>
         </service>
-        <service id="eoffice.user.fixtures.user" class="EOffice\User\Fixtures\UserFixtures">
-            <tag name="doctrine.fixtures.loader"/>
-        </service>
-        <service id="eoffice.user.fixtures.profile" class="EOffice\User\Fixtures\ProfileFixtures">
-            <tag name="doctrine.fixtures.loader"/>
-        </service>
-
     </services>
 </container>

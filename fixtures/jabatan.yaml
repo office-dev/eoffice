@@ -1,0 +1,5 @@
+EOffice\Organization\Model\Jabatan:
+    kepala:
+        __factory: {'@eoffice.user.fixtures.test_loader::createJabatan': ['Kepala']}
+    staff:
+        __factory: {'@eoffice.user.fixtures.test_loader::createJabatan': ['Staff']}

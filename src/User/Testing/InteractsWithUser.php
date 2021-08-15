@@ -28,14 +28,16 @@ trait InteractsWithUser
      *
      * @return Client
      */
-    protected function iHaveLoggedInAsUser(string $userName, string $password): Client
+    protected function iHaveLoggedInAsUser(string $username, string $password): Client
     {
         $response = static::createClient()->request('POST', '/login', ['json' => [
-            'username' => $userName,
+            'username' => $username,
             'password' => $password,
         ]]);
+
+        /** @var \stdClass $data */
         $data  = json_decode($response->getContent());
-        $token = $data->token;
+        $token = (string)$data->token;
 
         return static::createClient([], ['headers' => ['authorization' => 'Bearer '.$token]]);
     }
@@ -44,23 +46,27 @@ trait InteractsWithUser
     {
         $repo = $this->getUserRepository();
         $user = $repo->findOneBy(['username' => $username]);
+        $em = $this->getUserEntityManager();
         if (null === $user) {
             $user = new User($username, $email, $password);
-            $this->getEntityManager()->persist($user);
-            $this->getEntityManager()->flush($user);
+            $em->persist($user);
+            $em->flush();
         }
+
+        $em->refresh($user);
 
         return $user;
     }
 
-    protected function iDontHaveUser(string $username)
+    protected function iDontHaveUser(string $username): void
     {
         /** @var UserRepository $repo */
         $repo = $this->getUserRepository();
-        $user = $repo->loadUserByUsername($username);
+        $user = $repo->loadUserByIdentifier($username);
+        $em = $this->getUserEntityManager();
         if (null !== $user) {
-            $this->getEntityManager()->remove($user);
-            $this->getEntityManager()->flush();
+            $em->remove($user);
+            $em->flush();
         }
     }
 
@@ -70,5 +76,11 @@ trait InteractsWithUser
     protected function getUserRepository()
     {
         return $this->getEntityManager()->getRepository(UserInterface::class);
+    }
+
+    public function getUserEntityManager()
+    {
+        $model = (string)$this->getContainer()->getParameter('eoffice.user.models.user');
+        return $this->getEntityManager($model);
     }
 }

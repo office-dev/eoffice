@@ -13,6 +13,6 @@ declare(strict_types=1);
 
 namespace EOffice;
 
-class Kernel extends Core\Kernel
+class Kernel extends Core\Application\Kernel
 {
 }

@@ -9,9 +9,7 @@
         <id name="id">
             <generator strategy="UUID"/>
         </id>
-        <field name="nama" unique="true"/>
-        <field name="jabatanId" unique="true"/>
-        <field name="userId" unique="true"/>
-
+        <field name="nama"/>
+        <one-to-one field="user" target-entity="EOffice\Contracts\User\Model\UserInterface"/>
     </entity>
 </doctrine-mapping>

@@ -17,4 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UpdateProfileController extends AbstractController
 {
+    public function __invoke(string $userId)
+    {
+
+    }
 }

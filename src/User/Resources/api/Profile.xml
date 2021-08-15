@@ -13,7 +13,14 @@
         <attribute name="security">is_granted('ROLE_USER')</attribute>
         <property name="id" identifier="true" writable="false" readable="true"/>
         <property name="nama"/>
-        <property name="userId" readable="true" writable="false"/>
-        <property name="jabatanId"/>
+        <property name="user"/>
+        <!--
+        <collectionOperations>
+            <collectionOperation name="get"/>
+            <collectionOperation name="post">
+                <attribute name="path">/profiles/{user_id}</attribute>
+            </collectionOperation>
+        </collectionOperations>
+        -->
     </resource>
 </resources>

@@ -30,15 +30,16 @@ trait InteractsWithProfile
         }
     }
 
-    protected function iHaveProfileForUser(UserInterface $user, string $nama='Nama Profile', string $jabatan = 'Jabatan'): Profile
+    protected function iHaveProfileForUser(UserInterface $user, string $nama='Nama Profile', string $jabatan = 'Staff'): Profile
     {
         $em      = $this->getEntityManager();
         $profile = $em->getRepository(Profile::class)
             ->findOneBy([
-                'userId' => $user->getId(),
+                'user' => $user->getId(),
             ]);
         if (null === $profile) {
-            $profile = new Profile($nama, $user->getId(), $jabatan);
+            $jabatan = $this->iHaveJabatan($jabatan);
+            $profile = new Profile($nama, $user, $jabatan);
             $em->persist($profile);
             $em->flush($profile);
         }

@@ -14,27 +14,34 @@ declare(strict_types=1);
 namespace Functional\EOffice\User;
 
 use EOffice\Testing\ApiTestCase;
+use EOffice\Testing\Concerns\InteractsWithOrganization;
 use EOffice\User\Model\Profile;
 use EOffice\User\Testing\InteractsWithProfile;
 use EOffice\User\Testing\InteractsWithUser;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 /**
  * @covers \EOffice\User\Model\Profile
+ * @covers \EOffice\User\Testing\InteractsWithProfile
+ * @covers \EOffice\User\Testing\InteractsWithUser
+ * @covers \EOffice\User\Testing\InteractsWithOrganization
  */
 class ProfileApiTest extends ApiTestCase
 {
     use InteractsWithProfile;
     use InteractsWithUser;
+    use InteractsWithOrganization;
+    use RefreshDatabaseTrait;
 
     public function test_create_profile()
     {
-        $user   = $this->iHaveUser('admin');
-        $client = $this->iHaveLoggedInAsUser('admin', 'admin');
+        $user = $this->iHaveUser('test_profile');
+        $client = $this->iHaveLoggedInAsUser('test_profile', 'test');
+
 
         $response = $client->request('POST', '/api/profiles', ['json' => [
             'nama' => 'Bagong Handoko',
-            'userId' => $user->getId(),
-            'jabatanId' => 'Operator',
+            "user_id" => $user->getId()
         ]]);
 
         $this->assertResponseIsSuccessful();
@@ -43,10 +50,10 @@ class ProfileApiTest extends ApiTestCase
 
         $json = $response->toArray();
         $this->assertArrayHasKey('nama', $json);
-        $this->assertArrayHasKey('userId', $json);
+        $this->assertArrayHasKey('id', $json);
     }
 
-    public function test_get_profile()
+    public function test_update_profile()
     {
         // login dulu sebelum edit profile
         $user    = $this->iHaveUser('test');
@@ -58,9 +65,8 @@ class ProfileApiTest extends ApiTestCase
         $iri = $this->findIriBy(Profile::class, ['id' => $profile->getId()]);
         $client->request('PUT', $iri, ['json' => [
             'nama' => 'Nama Edited',
-            'jabatanId' => $profile->getJabatanId(),
         ]]);
-
-        $this->assertResponseIsSuccessful('foo');
+        $this->assertResponseIsSuccessful();
+        $this->assertJsonContains(['nama' => 'Nama Edited']);
     }
 }

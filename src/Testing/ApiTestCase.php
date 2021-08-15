@@ -23,7 +23,5 @@ abstract class ApiTestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->refreshDatabase();
-        $this->loadFixtures();
     }
 }
