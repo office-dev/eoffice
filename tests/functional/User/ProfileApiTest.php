@@ -24,7 +24,8 @@ use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
  * @covers \EOffice\User\Model\Profile
  * @covers \EOffice\User\Testing\InteractsWithProfile
  * @covers \EOffice\User\Testing\InteractsWithUser
- * @covers \EOffice\User\Testing\InteractsWithOrganization
+ * @covers \EOffice\Testing\Concerns\InteractsWithOrganization
+ * @covers \EOffice\Testing\Concerns\InteractsWithORM
  */
 class ProfileApiTest extends ApiTestCase
 {
