@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace EOffice\User\Model;
 
-use EOffice\Contracts\Organization\Model\JabatanInterface;
 use EOffice\Contracts\User\Model\ProfileInterface;
 use EOffice\Contracts\User\Model\UserInterface;
 
@@ -24,9 +23,8 @@ class Profile implements ProfileInterface
     protected ?UserInterface $user;
 
     /**
-     * @param string           $nama
-     * @param UserInterface    $user
-     * @param JabatanInterface $jabatan
+     * @param string        $nama
+     * @param UserInterface $user
      */
     public function __construct(string $nama, UserInterface $user = null)
     {

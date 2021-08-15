@@ -22,11 +22,11 @@ trait InteractsWithProfile
     {
         $em      = $this->getEntityManager();
         $profile = $em->getRepository(Profile::class)->findOneBy([
-            'userId' => $user->getId(),
+            'user' => $user->getId(),
         ]);
         if (null !== $profile) {
             $em->remove($profile);
-            $em->flush($profile);
+            $em->flush();
         }
     }
 
@@ -38,10 +38,9 @@ trait InteractsWithProfile
                 'user' => $user->getId(),
             ]);
         if (null === $profile) {
-            $jabatan = $this->iHaveJabatan($jabatan);
-            $profile = new Profile($nama, $user, $jabatan);
+            $profile = new Profile($nama, $user);
             $em->persist($profile);
-            $em->flush($profile);
+            $em->flush();
         }
 
         return $profile;

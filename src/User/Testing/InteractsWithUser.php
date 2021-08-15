@@ -14,22 +14,26 @@ declare(strict_types=1);
 namespace EOffice\User\Testing;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Response;
 use EOffice\Contracts\User\Model\UserInterface;
 use EOffice\Testing\Concerns\InteractsWithORM;
 use EOffice\User\Model\User;
 use EOffice\User\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 trait InteractsWithUser
 {
     use InteractsWithORM;
 
     /**
-     * @param UserInterface $user
+     * @param string $username
+     * @param string $password
      *
-     * @return Client
+     * @return Client|KernelBrowser
      */
-    protected function iHaveLoggedInAsUser(string $username, string $password): Client
+    protected function iHaveLoggedInAsUser(string $username, string $password)
     {
+        /** @var Response $response */
         $response = static::createClient()->request('POST', '/login', ['json' => [
             'username' => $username,
             'password' => $password,
