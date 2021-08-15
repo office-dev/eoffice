@@ -2,12 +2,12 @@ default:
     suites:
         default:
             contexts:
-                - Integration\EOffice\DemoContext
-
+                - 'Integration\EOffice\DemoContext'
     extensions:
         FriendsOfBehat\SymfonyExtension:
-            #bootstrap: ./config/preload.php
+            bootstrap: 'tests/fixtures/Resources/bootstrap.php'
             kernel:
-                #class: EOffice\Kernel
-                #debug: true
+                class: EOffice\Kernel
                 environment: test
+                path: src/Kernel.php
+                debug: true

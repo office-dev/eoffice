@@ -105,11 +105,9 @@
         "symfony/yaml": "5.3.*"
     },
     "require-dev": {
-        "behat/behat": "^3.8",
-        "behatch/contexts": "^3.3",
-        "friends-of-behat/mink": "^1.9",
-        "friends-of-behat/mink-extension": "^2.5",
-        "friends-of-behat/symfony-extension": "^2.1",
+        "behat/behat": "^3.6.1",
+        "friends-of-behat/service-container-extension": "dev-master",
+        "friends-of-behat/symfony-extension": "^2.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "hautelook/alice-bundle": "^2.9",
         "liip/test-fixtures-bundle": "^1.12",

@@ -8,11 +8,6 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
-###> friends-of-behat/symfony-extension ###
-/behat.yml
-###< friends-of-behat/symfony-extension ###
-
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
@@ -32,3 +27,7 @@
 ###< lexik/jwt-authentication-bundle ###
 node_modules
 build
+
+###> friends-of-behat/symfony-extension ###
+/behat.yml
+###< friends-of-behat/symfony-extension ###

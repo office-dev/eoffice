@@ -3,8 +3,5 @@ services:
         autowire: true
         autoconfigure: true
 
-    Integration\EOffice\DemoContext:
-        public: true
-        autoconfigure: true
-        tags:
-            name: container.service_subscriber
+    Integration\EOffice\:
+        resource: "../tests/integration/*"
