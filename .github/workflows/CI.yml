@@ -182,8 +182,15 @@ jobs:
         with:
           path: ~/.composer/cache
           key: composer-cache-php${{ matrix.php }}-symfony{{ matrix.symfony }}
+      - name: cache docker cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}/cache
+          key: ${{ runner.os }}-docker-${{ hashfiles('cache/**') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
       - name: Install PHP dependencies
-        run: composer install --no-interaction --no-scripts
+        run: composer install --prefer-dist --no-interaction --no-scripts
         working-directory: api
       - name: Pull images
         run: docker-compose pull --ignore-pull-failures || true
@@ -207,8 +214,7 @@ jobs:
         run: curl  -vk -o /dev/null https://localhost
       - name: Create test database
         run: |
-          docker-compose exec -T php bin/console -e test doctrine:database:create
-          docker-compose exec -T php bin/console -e test doctrine:schema:update
+          docker-compose exec -T php bin/console doctrine:schema:update
       - name: Install certificates
         run: symfony server:ca:install
       - name: Run chrome headless
