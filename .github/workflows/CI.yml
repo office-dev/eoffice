@@ -86,6 +86,8 @@ jobs:
             symfony: '5.3'
             coverage: true
     name: API - PHPUnit (PHP ${{ matrix.php }})(Symfony ${{ matrix.symfony }})
+    env:
+      DATABASE_URL: 'sqlite:///%kernel.project_dir%/var/dev.db'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -214,11 +216,13 @@ jobs:
         run: |
           docker-compose exec -T php bin/console doctrine:database:create -e test
           docker-compose exec -T php bin/console doctrine:schema:update -e test --force
-          docker-compose exec php bin/console -e test doctrine:query:sql 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"'
+          docker-compose exec -T php bin/console -e test doctrine:query:sql 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"'
       - name: Install certificates
         run: symfony server:ca:install
       - name: Run chrome headless
         run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --window-size=2880,1800 > /dev/null 2>&1 &
       - name: Run behat tests
-        run: DATABASE_URL="postgresql://eoffice:eoffice@localhost:5432/eoffice?serverVersion=13&charset=utf8" ./vendor/bin/behat
+        run: ./vendor/bin/behat
         working-directory: "api"
+        env:
+          DATABASE_URL: "postgresql://eoffice:eoffice@localhost:5432/eoffice?serverVersion=13&charset=utf8"
