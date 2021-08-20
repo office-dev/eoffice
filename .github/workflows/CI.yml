@@ -214,7 +214,7 @@ jobs:
         run: curl  -vk -o /dev/null https://localhost
       - name: Create test database
         run: |
-          docker-compose exec -T php bin/console doctrine:schema:update
+          docker-compose exec -T php bin/console doctrine:schema:update --force
       - name: Install certificates
         run: symfony server:ca:install
       - name: Run chrome headless
