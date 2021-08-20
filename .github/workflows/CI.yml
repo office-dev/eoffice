@@ -184,6 +184,7 @@ jobs:
           key: composer-cache-php${{ matrix.php }}-symfony{{ matrix.symfony }}
       - name: Install PHP dependencies
         run: composer install --no-interaction --no-scripts
+        working-directory: api
       - name: Pull images
         run: docker-compose pull --ignore-pull-failures || true
       - name: Start services
