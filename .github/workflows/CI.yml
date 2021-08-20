@@ -183,7 +183,7 @@ jobs:
           path: ~/.composer/cache
           key: composer-cache-php${{ matrix.php }}-symfony{{ matrix.symfony }}
       - name: Install PHP dependencies
-        run: composer install --no-interaction --no-scripts -W
+        run: composer install --no-interaction --no-scripts
       - name: Pull images
         run: docker-compose pull --ignore-pull-failures || true
       - name: Start services
