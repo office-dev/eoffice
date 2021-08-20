@@ -20,5 +20,5 @@ if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
     require dirname(__DIR__).'/config/bootstrap.php';
 } elseif (method_exists(Dotenv::class, 'bootEnv')) {
     /* @psalm-suppress MissingFile */
-    (new Dotenv())->bootEnv(dirname(__DIR__).'/.env', 'dev',['tests','behat']);
+    (new Dotenv())->bootEnv(dirname(__DIR__).'/.env', 'dev', ['tests', 'behat']);
 }
