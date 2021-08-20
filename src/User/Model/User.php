@@ -31,8 +31,9 @@ class User implements UserInterface
     protected string $password;
     protected ?string $salt = null;
     protected array $roles;
-    protected bool $enabled          = true;
-    protected ?string $plainPassword = null;
+    protected bool $enabled                  = true;
+    protected ?string $plainPassword         = null;
+    protected ?\DateTimeInterface $createdAt = null;
 
     /**
      * @param string      $username
@@ -53,6 +54,70 @@ class User implements UserInterface
         $this->plainPassword = $plainPassword;
         $this->roles         = $roles;
         $this->enabled       = $enabled;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $createdAt
+     */
+    public function setCreatedAt(?\DateTimeInterface $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param string|null $salt
+     */
+    public function setSalt(?string $salt): void
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled): void
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @param string|null $plainPassword
+     */
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 
     /**
@@ -89,12 +154,6 @@ class User implements UserInterface
     public function setPassword(string $password): void
     {
         $this->password = $password;
-    }
-
-    public function __call(string $name, array $arguments): string
-    {
-        // TODO: Implement @method string getUserIdentifier()
-        return $this->id;
     }
 
     /**

@@ -62,7 +62,7 @@ class Kernel extends BaseKernel
         $container->import($projectDir.'/config/{packages}/*.yaml');
         $container->import($projectDir.'/config/{packages}/'.$env.'/*.yaml');
 
-        if (is_file(\dirname(__DIR__).'/config/services.yaml')) {
+        if (is_file($projectDir.'/config/services.yaml')) {
             $container->import($projectDir.'/config/services.yaml');
             $container->import($projectDir.'/config/{services}_'.$env.'.yaml');
         } else {
