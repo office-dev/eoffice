@@ -159,3 +159,59 @@ jobs:
         with:
           flags: pwa
 
+  e2e:
+    runs-on: ubuntu-20.04
+    name: End To End Tests
+    strategy:
+      matrix:
+        php: [8.0]
+        node: [14]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          tools: composer:v2, symfony
+          coverage: none
+      - name: Cache Composer cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.composer/cache
+          key: composer-cache-php${{ matrix.php }}-symfony{{ matrix.symfony }}
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --no-scripts -W
+      - name: Pull images
+        run: docker-compose pull --ignore-pull-failures || true
+      - name: Start services
+        run: docker-compose -f docker-compose.yml -f docker-compose.override.yml --build -d
+      - name: Wait docker to be started
+        run: |
+          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker-compose ps -q php)")"; do
+            case $status in
+              starting) sleep 1;;
+              healthy) exit 0;;
+              unhealthy)
+                docker-compose ps
+                docker-compose logs
+                exit 1
+              ;;
+            esac
+          done
+          exit 1
+      - name: Check HTTP reachability
+        run: curl -v -o /dev/null https://localhost
+      - name: Create test database
+        run: |
+          docker-compose exec -T php bin/console -e test doctrine:database:create
+          docker-compose exec -T php bin/console -e test doctrine:schema:update
+      - name: Install certificates
+        run: symfony server:ca:install
+      - name: Run chrome headless
+        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' > /dev/null 2>&1 &
+      - name: Run behat tests
+        run: "./vendor/bin/behat"
+        working-directory: "api"

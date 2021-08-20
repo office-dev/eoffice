@@ -8,7 +8,7 @@ ARG NODE_VERSION=14
 # "common" stage
 FROM node:${NODE_VERSION}-alpine AS eoffice_pwa_common
 
-EXPOSE 3000
+EXPOSE 8080
 
 WORKDIR /usr/src/pwa
 

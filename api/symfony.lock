@@ -28,6 +28,12 @@
     "behat/gherkin": {
         "version": "v4.8.0"
     },
+    "behat/mink": {
+        "version": "v1.8.1"
+    },
+    "behat/mink-selenium2-driver": {
+        "version": "v1.4.0"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
@@ -39,6 +45,12 @@
     },
     "composer/xdebug-handler": {
         "version": "2.0.2"
+    },
+    "dmore/behat-chrome-extension": {
+        "version": "1.3.0"
+    },
+    "dmore/chrome-mink-driver": {
+        "version": "2.8.0"
     },
     "dnoegel/php-xdg-base-dir": {
         "version": "v0.1.1"
@@ -150,6 +162,9 @@
     "fig/link-util": {
         "version": "1.2.0"
     },
+    "friends-of-behat/mink-extension": {
+        "version": "v2.5.0"
+    },
     "friends-of-behat/service-container-extension": {
         "version": "v1.1.0"
     },
@@ -199,6 +214,9 @@
             "config/packages/test/hautelook_alice.yaml",
             "fixtures/.gitignore"
         ]
+    },
+    "instaclick/php-webdriver": {
+        "version": "1.4.9"
     },
     "laminas/laminas-code": {
         "version": "4.4.2"
@@ -704,6 +722,9 @@
     },
     "symfony/yaml": {
         "version": "v5.3.6"
+    },
+    "textalk/websocket": {
+        "version": "1.5.5"
     },
     "theofidry/alice-data-fixtures": {
         "version": "1.0",
