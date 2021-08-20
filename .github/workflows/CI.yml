@@ -6,6 +6,9 @@ on:
 
 jobs:
   php-cs-fixer:
+    defaults:
+      run:
+        working-directory: api
     name: PHP-CS-FIXER (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -32,6 +35,9 @@ jobs:
 
   static-checks:
     runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: api
     name: "Static checks (PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }})"
     timeout-minutes: 10
     strategy:
@@ -67,7 +73,9 @@ jobs:
 
   tests:
     runs-on: ubuntu-20.04
-
+    defaults:
+      run:
+        working-directory: api
     strategy:
       fail-fast: true
       matrix:

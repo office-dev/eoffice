@@ -1,0 +1,3 @@
+export const UI_TOGGLE_LOADING = 'UI_TOGGLE_LOADING';
+export const UI_TOGGLE_DRAWER = 'UI_TOGGLE_DRAWER';
+export const UI_SNACKBAR = 'UI_SNACKBAR';

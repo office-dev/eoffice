@@ -4,7 +4,7 @@ services:
   php:
     container_name: eoffice.php
     build:
-      context: ./
+      context: ./api
       target: eoffice_php
     depends_on:
       - database
@@ -33,7 +33,7 @@ services:
   caddy:
     container_name: eoffice.caddy
     build:
-      context: ./
+      context: ./api
       target: eoffice_caddy
     depends_on:
       - php
@@ -94,7 +94,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 8080:80
+      - 8081:80
     environment:
       - PMA_ARBITRARY=1
     networks:

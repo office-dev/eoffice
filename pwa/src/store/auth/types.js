@@ -1,0 +1,4 @@
+export const AUTH_LOGIN_START = "AUTH_LOGIN_START";
+export const AUTH_LOGIN_END = "AUTH_LOGIN_END";
+export const AUTH_LOGIN_ERROR = "AUTH_LOGIN_ERROR";
+export const AUTH_LOGIN_RESET = "AUTH_LOGIN_RESET";
