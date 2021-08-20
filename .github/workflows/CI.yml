@@ -6,12 +6,12 @@ on:
 
 jobs:
   php-cs-fixer:
+    name: API - CS Fixer (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: api
-    name: PHP-CS-FIXER (PHP ${{ matrix.php }})
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
     strategy:
       matrix:
         php:
@@ -38,7 +38,7 @@ jobs:
     defaults:
       run:
         working-directory: api
-    name: "Static checks (PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }})"
+    name: API - Static checks (PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }})
     timeout-minutes: 10
     strategy:
       fail-fast: false
@@ -86,7 +86,7 @@ jobs:
             symfony: '5.3'
             coverage: true
 
-    name: PHPUnit (PHP ${{ matrix.php }})(Symfony ${{ matrix.symfony }})
+    name: API - PHPUnit (PHP ${{ matrix.php }})(Symfony ${{ matrix.symfony }})
 
     steps:
       - name: Checkout code
@@ -136,6 +136,26 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           name: phpunit-php${{ matrix.php }}
-          flags: phpunit
+          flags: api
           fail_ci_if_error: true
         continue-on-error: true
+
+  pwa-tests:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: pwa
+    name: PWA - Unit Tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+      - name: Installing project dependencies
+        run: yarn
+      - name: Running tests
+        run: yarn test:unit
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          flags: pwa
+
