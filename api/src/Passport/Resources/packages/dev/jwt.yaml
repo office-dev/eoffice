@@ -1,0 +1,6 @@
+lexik_jwt_authentication:
+    set_cookies:
+        jwt_hp:
+            samesite: none
+        jwt_s:
+            samesite: none

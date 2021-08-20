@@ -1,0 +1,8 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults autoconfigure="true" autowire="true">
+        </defaults>
+        <service id="eoffice.ui.controller.homepage" class="EOffice\UI\Controller\HomepageController">
+        </service>
+    </services>
+</container>

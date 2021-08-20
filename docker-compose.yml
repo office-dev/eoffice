@@ -2,9 +2,10 @@ version: "3.4"
 
 services:
   php:
+    image: doyolabs/eoffice-api
     container_name: eoffice.php
     build:
-      context: ./
+      context: ./api
       target: eoffice_php
     depends_on:
       - database
@@ -16,30 +17,28 @@ services:
       timeout: 3s
       retries: 3
       start_period: 30s
-    networks:
-      - eoffice
 
   pwa:
+    image: doyolabs/eoffice-pwa
     container_name: eoffice.pwa
     build:
-      context: ./ui/pwa
+      context: ./pwa
       target: eoffice_pwa_prod
     environment:
       API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT: http://caddy
       NEXT_PUBLIC_ENTRYPOINT: http://caddy
-    networks:
-      - eoffice
 
   caddy:
+    image: doyolabs/eoffice-caddy
     container_name: eoffice.caddy
     build:
-      context: ./
+      context: ./api
       target: eoffice_caddy
     depends_on:
       - php
       - pwa
     environment:
-      PWA_UPSTREAM: pwa:3000
+      PWA_UPSTREAM: pwa:8080
       SERVER_NAME: ${SERVER_NAME:-localhost, caddy:80}
       MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeMe!}
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeMe!}
@@ -61,55 +60,37 @@ services:
       - target: 443
         published: 443
         protocol: udp
-    networks:
-      - eoffice
 
   database:
     container_name: eoffice.database
-    image: 'mariadb:10'
-    ports:
-      - target: 3306
-        published: 3306
-        protocol: tcp
-      - target: 3306
-        published: 3306
-        protocol: udp
+    image: postgres:13-alpine
     environment:
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_DATABASE: '${DB_DATABASE}'
-      MYSQL_USER: '${DB_USERNAME}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      - POSTGRES_DB=eoffice
+      - POSTGRES_PASSWORD=eoffice
+      - POSTGRES_USER=eoffice
+    ports:
+      - "5432:5432"
     volumes:
-      - 'db_data:/var/lib/mysql:rw'
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
-      retries: 3
-      timeout: 5s
-    networks:
-      - eoffice
+      - ./var/db/data:/var/lib/postgresql/data:rw
+      - ./docker/postgres/init-uuid-extension.sh:/docker-entrypoint-init.db/init-uuid-extension.sh
+      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./api/docker/db/data:/var/lib/postgresql/data:rw
 
-  phpmyadmin:
-    container_name: eoffice.phpmyadmin
-    image: phpmyadmin
-    restart: always
-    ports:
-      - 8080:80
-    environment:
-      - PMA_ARBITRARY=1
-    networks:
-      - eoffice
   chrome:
     container_name: "eoffice.chrome"
-    image: selenium/standalone-chrome
+    image: selenium/standalone-chrome:2.44.0
     network_mode: host
-    
+    privileged: true
+    shm_size: 2g
+    #ports:
+    #  - '5900:5900'
+    #  - '4444:4444'
+  #  environment:
+  #    - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
+  #  shm_size: 2g
+  #  privileged: true
+
 volumes:
   php_socket:
-  db_data:
   caddy_data:
   caddy_config:
-
-networks:
-  eoffice:
-    driver: bridge

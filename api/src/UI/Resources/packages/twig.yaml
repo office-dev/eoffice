@@ -1,0 +1,3 @@
+twig:
+    paths:
+        '%eoffice.ui.module_dir%/Resources/templates': ui

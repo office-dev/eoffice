@@ -6,9 +6,12 @@ on:
 
 jobs:
   php-cs-fixer:
-    name: PHP-CS-FIXER (PHP ${{ matrix.php }})
+    name: API - CS Fixer (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: api
     strategy:
       matrix:
         php:
@@ -32,7 +35,10 @@ jobs:
 
   static-checks:
     runs-on: ubuntu-20.04
-    name: "Static checks (PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }})"
+    defaults:
+      run:
+        working-directory: api
+    name: API - Static checks (PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }})
     timeout-minutes: 10
     strategy:
       fail-fast: false
@@ -67,7 +73,9 @@ jobs:
 
   tests:
     runs-on: ubuntu-20.04
-
+    defaults:
+      run:
+        working-directory: api
     strategy:
       fail-fast: true
       matrix:
@@ -77,9 +85,9 @@ jobs:
           - php: '8.0'
             symfony: '5.3'
             coverage: true
-
-    name: PHPUnit (PHP ${{ matrix.php }})(Symfony ${{ matrix.symfony }})
-
+    name: API - PHPUnit (PHP ${{ matrix.php }})(Symfony ${{ matrix.symfony }})
+    env:
+      DATABASE_URL: 'sqlite:///%kernel.project_dir%/var/dev.db'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -128,6 +136,86 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           name: phpunit-php${{ matrix.php }}
-          flags: phpunit
+          flags: api
           fail_ci_if_error: true
         continue-on-error: true
+
+  pwa-tests:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: pwa
+    name: PWA - Unit Tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+      - name: Installing project dependencies
+        run: yarn
+      - name: Running tests
+        run: yarn test:unit
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          flags: pwa
+
+  e2e:
+    runs-on: ubuntu-20.04
+    name: End To End Tests (PHP ${{ matrix.php }})(Node ${{ matrix.node }})
+    strategy:
+      matrix:
+        php: [8.0]
+        node: [14]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          tools: composer:v2, symfony
+          coverage: none
+      - name: Cache Composer cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.composer/cache
+          key: composer-cache-php${{ matrix.php }}-symfony{{ matrix.symfony }}
+      - name: Install certificates
+        run: symfony server:ca:install
+      - name: Run chrome headless
+        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --disable-translate --disable-extensions --no-sandbox --headless --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --window-size=2880,1800 > /dev/null 2>&1 &
+      - name: Install PHP dependencies
+        run: composer install --prefer-dist --no-interaction
+        working-directory: api
+      - name: Pull images
+        run: docker-compose pull --ignore-pull-failures || true
+      - name: Start services
+        run: docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+      - name: Wait docker to be started
+        run: |
+          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker-compose ps -q php)")"; do
+            case $status in
+              starting) sleep 1;;
+              healthy) exit 0;;
+              unhealthy)
+                docker-compose ps
+                docker-compose logs
+                exit 1
+              ;;
+            esac
+          done
+          exit 1
+      - name: Check HTTP reachability
+        run: curl  -vk -o /dev/null https://localhost
+      - name: Create test database
+        run: |
+          docker-compose exec -T php bin/console doctrine:database:create -e test
+          docker-compose exec -T php bin/console doctrine:schema:update -e test --force
+          docker-compose exec -T php bin/console -e test doctrine:query:sql 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"'
+      - name: Run behat tests
+        run: ./vendor/bin/behat
+        working-directory: "api"
+        env:
+          DATABASE_URL: "postgresql://eoffice:eoffice@localhost:5432/eoffice?serverVersion=13&charset=utf8"
