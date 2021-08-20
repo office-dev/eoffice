@@ -20,6 +20,7 @@ use EOffice\Testing\Concerns\InteractsWithORM;
 use EOffice\User\Model\User;
 use EOffice\User\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\BrowserKit\Cookie;
 
 trait InteractsWithUser
 {
@@ -34,16 +35,21 @@ trait InteractsWithUser
     protected function iHaveLoggedInAsUser(string $username, string $password)
     {
         /** @var Response $response */
-        $response = static::createClient()->request('POST', '/login', ['json' => [
+        $response = static::createClient()->request('POST', '/api/login', ['json' => [
             'username' => $username,
             'password' => $password,
         ]]);
 
-        /** @var \stdClass $data */
-        $data  = json_decode($response->getContent());
-        $token = (string) $data->token;
+        $cookies = $response->getHeaders()['set-cookie'];
+        $jwt_hp  = str_replace('jwt_hp=', '', explode(';', $cookies[0])[0]);
+        $jwt_s   = str_replace('jwt_s=', '', explode(';', $cookies[1])[0]);
 
-        return static::createClient([], ['headers' => ['authorization' => 'Bearer '.$token]]);
+        /** @var Client $client */
+        $client = static::createClient();
+        $client->getCookieJar()->set(new Cookie('jwt_hp', $jwt_hp));
+        $client->getCookieJar()->set(new Cookie('jwt_s', $jwt_s));
+
+        return $client;
     }
 
     protected function iHaveUser(string $username = 'test', string $email='test@example.org', string $password = 'test'): UserInterface
