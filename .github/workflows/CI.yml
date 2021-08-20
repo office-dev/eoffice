@@ -161,7 +161,7 @@ jobs:
 
   e2e:
     runs-on: ubuntu-20.04
-    name: End To End Tests
+    name: End To End Tests (PHP ${{ matrix.php }})(Node ${{ matrix.node }})
     strategy:
       matrix:
         php: [8.0]
@@ -204,7 +204,7 @@ jobs:
           done
           exit 1
       - name: Check HTTP reachability
-        run: curl -v -o /dev/null https://localhost
+        run: curl  -vk -o /dev/null https://localhost
       - name: Create test database
         run: |
           docker-compose exec -T php bin/console -e test doctrine:database:create
