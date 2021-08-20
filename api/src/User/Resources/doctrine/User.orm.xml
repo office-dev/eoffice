@@ -7,6 +7,7 @@
     <entity
         name="EOffice\User\Model\User"
         repository-class="EOffice\User\Repository\UserRepository"
+        table="security_user"
     >
         <id name="id">
             <generator strategy="UUID"/>

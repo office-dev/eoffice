@@ -8,5 +8,5 @@ Feature:
     I want to have a demo scenario
 
     Scenario: It receives a response from Symfony's kernel
-        When a demo scenario sends a request to "/"
+        When a demo scenario sends a request to "/api/docs.jsonld"
         Then the response should be received

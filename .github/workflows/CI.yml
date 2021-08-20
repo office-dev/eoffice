@@ -212,11 +212,12 @@ jobs:
         run: curl  -vk -o /dev/null https://localhost
       - name: Create test database
         run: |
-          docker-compose exec -T php bin/console doctrine:schema:update --force
+          docker-compose exec -T php bin/console doctrine:database:create -e test
+          docker-compose exec -T php bin/console doctrine:schema:update -e test --force
       - name: Install certificates
         run: symfony server:ca:install
       - name: Run chrome headless
-        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' > /dev/null 2>&1 &
+        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --window-size=2880,1800 > /dev/null 2>&1 &
       - name: Run behat tests
-        run: "./vendor/bin/behat"
+        run: DATABASE_URL="postgresql://eoffice:eoffice@localhost:5432/eoffice?serverVersion=13&charset=utf8" ./vendor/bin/behat
         working-directory: "api"
