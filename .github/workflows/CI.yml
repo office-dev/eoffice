@@ -182,13 +182,10 @@ jobs:
         with:
           path: ~/.composer/cache
           key: composer-cache-php${{ matrix.php }}-symfony{{ matrix.symfony }}
-      - name: cache docker cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ github.workspace }}/cache
-          key: ${{ runner.os }}-docker-${{ hashfiles('cache/**') }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
+      - name: Install certificates
+        run: symfony server:ca:install
+      - name: Run chrome headless
+        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --disable-translate --disable-extensions --no-sandbox --headless --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --window-size=2880,1800 > /dev/null 2>&1 &
       - name: Install PHP dependencies
         run: composer install --prefer-dist --no-interaction
         working-directory: api
@@ -217,10 +214,6 @@ jobs:
           docker-compose exec -T php bin/console doctrine:database:create -e test
           docker-compose exec -T php bin/console doctrine:schema:update -e test --force
           docker-compose exec -T php bin/console -e test doctrine:query:sql 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"'
-      - name: Install certificates
-        run: symfony server:ca:install
-      - name: Run chrome headless
-        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --window-size=2880,1800 > /dev/null 2>&1 &
       - name: Run behat tests
         run: ./vendor/bin/behat
         working-directory: "api"
