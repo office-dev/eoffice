@@ -35,8 +35,7 @@ class LoginApiTest extends ApiTestCase
         ]]);
 
         $this->assertResponseIsSuccessful();
-        $data = $response->toArray();
-        $this->assertArrayHasKey('token', $data);
+        $this->assertResponseStatusCodeSame(204);
     }
 
     public function test_it_should_handle_invalid_login(): void

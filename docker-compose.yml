@@ -39,7 +39,7 @@ services:
       - php
       - pwa
     environment:
-      PWA_UPSTREAM: pwa:3000
+      PWA_UPSTREAM: pwa:8080
       SERVER_NAME: ${SERVER_NAME:-localhost, caddy:80}
       MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeMe!}
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeMe!}
@@ -75,10 +75,10 @@ services:
         published: 3306
         protocol: udp
     environment:
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_DATABASE: '${DB_DATABASE}'
-      MYSQL_USER: '${DB_USERNAME}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-eoffice}
+      MYSQL_DATABASE: ${DB_DATABASE:-eoffice}
+      MYSQL_USER: ${DB_USERNAME:-eoffice}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-eoffice}
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     volumes:
       - 'db_data:/var/lib/mysql:rw'

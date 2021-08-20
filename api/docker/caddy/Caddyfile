@@ -22,8 +22,9 @@ log
     || {path} == "/favicon.ico"
     || {path} == "/manifest.json"
     || {path} == "/robots.txt"
-    || {path}.startsWith("/_next")
-    || {path}.startsWith("/sitemap")`
+    || {path}.startsWith("/js")
+    || {path}.startsWith("/sockjs-node")
+    `
 
 route {
     root * /srv/api/public

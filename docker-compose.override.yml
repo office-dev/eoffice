@@ -4,10 +4,10 @@ version: "3.4"
 services:
   php:
     volumes:
-      - ./:/srv/api:rw,cached
+      - ./api:/srv/api:rw,cached
       #- ./docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.ini
       # if you develop on Linux, you may use a bind-mounted host directory instead
-      - ./var:/srv/api/var:rw
+      - ./api/var:/srv/api/var:rw
     environment:
       APP_ENV: dev
 
@@ -20,8 +20,8 @@ services:
 
   caddy:
     volumes:
-      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./public:/srv/api/public:ro
+      - ./api/docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./api/public:/srv/api/public:ro
     environment:
       MERCURE_EXTRA_DIRECTIVES: demo
 

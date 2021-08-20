@@ -110,7 +110,7 @@
         "friends-of-behat/symfony-extension": "^2.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "hautelook/alice-bundle": "^2.9",
-        "liip/test-fixtures-bundle": "^1.12",
+        "liip/test-fixtures-bundle": "^2.0",
         "mockery/mockery": "^1.4",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^0.12.94",

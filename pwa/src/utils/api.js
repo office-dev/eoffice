@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const api = {
     generateUrl(url, params = false){
-        const path = process.env.VUE_APP_ENTRYPOINT;
-        url = `${path}/${url}`;
+        //const path = process.env.VUE_APP_ENTRYPOINT;
+        url = `/api/${url}`;
         if(params){
             url = `${url}?${params.join('&')}`
         }
