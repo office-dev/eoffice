@@ -85,9 +85,7 @@ jobs:
           - php: '8.0'
             symfony: '5.3'
             coverage: true
-
     name: API - PHPUnit (PHP ${{ matrix.php }})(Symfony ${{ matrix.symfony }})
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -190,7 +188,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-docker-
       - name: Install PHP dependencies
-        run: composer install --prefer-dist --no-interaction --no-scripts
+        run: composer install --prefer-dist --no-interaction
         working-directory: api
       - name: Pull images
         run: docker-compose pull --ignore-pull-failures || true
