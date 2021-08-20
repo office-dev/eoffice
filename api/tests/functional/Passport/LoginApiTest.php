@@ -15,7 +15,7 @@ namespace Functional\EOffice\Passport;
 
 use EOffice\Testing\ApiTestCase;
 use EOffice\User\Testing\InteractsWithUser;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use Hautelook\AliceBundle\PhpUnit\RecreateDatabaseTrait;
 
 /**
  * @covers \EOffice\User\UserModule
@@ -24,12 +24,12 @@ use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 class LoginApiTest extends ApiTestCase
 {
     use InteractsWithUser;
-    use RefreshDatabaseTrait;
+    use RecreateDatabaseTrait;
 
     public function test_it_should_handle_user_login(): void
     {
         $this->iHaveUser();
-        $response = static::createClient()->request('POST', '/api/login', ['json' => [
+        static::createClient()->request('POST', '/api/login', ['json' => [
             'username' => 'test',
             'password' => 'test',
         ]]);

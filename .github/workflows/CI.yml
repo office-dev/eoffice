@@ -214,6 +214,7 @@ jobs:
         run: |
           docker-compose exec -T php bin/console doctrine:database:create -e test
           docker-compose exec -T php bin/console doctrine:schema:update -e test --force
+          docker-compose exec php bin/console -e test doctrine:query:sql 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"'
       - name: Install certificates
         run: symfony server:ca:install
       - name: Run chrome headless
