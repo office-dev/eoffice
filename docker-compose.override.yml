@@ -13,10 +13,10 @@ services:
 
   pwa:
     build:
-      context: ./ui/web
+      context: ./pwa
       target: eoffice_pwa_dev
     volumes:
-      - ./ui/web:/usr/src/pwa:rw,cached
+      - ./pwa:/usr/src/pwa:rw,cached
 
   caddy:
     volumes:

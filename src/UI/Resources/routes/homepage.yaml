@@ -1,0 +1,3 @@
+eoffice.homepage:
+    path: /dashboard
+    controller: 'eoffice.ui.controller.homepage'

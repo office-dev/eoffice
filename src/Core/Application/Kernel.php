@@ -81,7 +81,7 @@ class Kernel extends BaseKernel
         $routes->import($projectDir.'/config/{routes}/'.$env.'/*.yaml');
         $routes->import($projectDir.'/config/{routes}/*.yaml');
 
-        if (is_file(\dirname(__DIR__).'/config/routes.yaml')) {
+        if (is_file($projectDir.'/config/routes.yaml')) {
             $routes->import($projectDir.'/config/routes.yaml');
         } else {
             $routes->import($projectDir.'/config/{routes}.php');
@@ -89,9 +89,7 @@ class Kernel extends BaseKernel
 
         foreach ($this->getModules() as $module) {
             $baseDir = $module->getBaseDir();
-            if (is_file($file = $baseDir.'/Resources/config/routes.yaml')) {
-                $routes->import($file);
-            }
+            $routes->import($baseDir.'/{Resources}/{routes}/*.yaml');
         }
     }
 

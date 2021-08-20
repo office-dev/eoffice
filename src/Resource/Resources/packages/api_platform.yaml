@@ -2,6 +2,9 @@ api_platform:
     patch_formats:
         json:
             - 'application/merge-patch+json'
-            - 'application/json'
+    formats:
+        jsonld: [ 'application/ld+json' ]
+        json: [ 'application/json' ]
+        html: [ 'text/html' ]
     swagger:
         versions: [3]

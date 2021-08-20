@@ -16,4 +16,5 @@ return [
     EOffice\Passport\PassportModule::class,
     EOffice\Resource\ResourceModule::class,
     EOffice\Organization\OrganizationModule::class,
+    EOffice\UI\UIModule::class,
 ];

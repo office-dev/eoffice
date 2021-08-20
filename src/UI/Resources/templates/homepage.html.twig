@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>EOffice</title>
+
+    {% block stylesheets %}
+        {# 'app' must match the first argument to addEntry() in webpack.config.js #}
+        {{ encore_entry_link_tags('eoffice') }}
+
+        <!-- Renders a link tag (if your module requires any CSS)
+             <link rel="stylesheet" href="/build/app.css"> -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('eoffice') }}
+
+        <!-- Renders main.js & a webpack runtime.js file
+            <script src="/build/runtime.js" defer></script>
+            <script src="/build/main.js" defer></script>
+            See note below about the "defer" attribute -->
+    {% endblock %}
+</head>
+
+<body>
+
+<div id="app">
+</div>
+</body>
+</html>
